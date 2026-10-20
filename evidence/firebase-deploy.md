@@ -6,6 +6,7 @@
 - Firebase plan: Spark
 - Deploy command: `npm exec -- firebase deploy --only hosting --project new-website-50b26`
 - Result: Deployment completed successfully; the live page loaded in the browser with no console errors.
+- GitHub Actions verification: build and Playwright tests pass on push. Automated Firebase deployment is paused until its service-account secret and enable variable are configured.
 - Hosting URL: https://new-website-50b26.web.app
 - Screenshot: [Live Firebase deployment](screenshots/firebase-hosted-live.png)
 

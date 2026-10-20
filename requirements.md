@@ -33,7 +33,7 @@
 6. Footer has useful links and clear, appropriate play guidance.
 7. The interface is legible and usable at 320px mobile width, tablet width, and desktop width without horizontal overflow.
 8. Automated Playwright runs save test reports and relevant screenshots as evidence.
-9. The production build is deployed to Firebase Hosting; GitHub Actions can redeploy after a push to `main`.
+9. The production build is deployed to Firebase Hosting; GitHub Actions verification runs on pushes. Hosting auto-deploy becomes active after its service-account secret and enable variable are configured.
 
 ## Domain check
 
@@ -129,7 +129,7 @@ Test evidence is stored under `evidence/`:
 - `evidence/test-results/playwright-cli.log` and `build.log` — CLI/build run transcripts.
 - `npm run verify` — checks the domain, builds the site, runs Playwright, and refreshes the evidence automatically. Chromium is installed if needed.
 - `.github/workflows/verify.yml` — repeats verification on pushes and pull requests and uploads the evidence artifact.
-- `.github/workflows/firebase-hosting.yml` — builds/tests and deploys to Firebase Hosting on pushes to `main`; requires GitHub secret `FIREBASE_SERVICE_ACCOUNT_NEW_WEBSITE_50B26`.
+- `.github/workflows/firebase-hosting.yml` — builds/tests and deploys to Firebase Hosting on pushes to `main` when `FIREBASE_HOSTING_AUTODEPLOY=enabled` and secret `FIREBASE_SERVICE_ACCOUNT_NEW_WEBSITE_50B26` are configured.
 - `firebase.json` and `.firebaserc` — Firebase Hosting configuration for project `new-website-50b26`.
 
 Manual browser smoke check (2026-10-20): the home page rendered in the browser and the console was clear after a React runtime-import issue was fixed. Screenshot: `evidence/screenshots/00-browser-preview.png`.

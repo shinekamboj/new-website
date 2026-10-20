@@ -10,6 +10,7 @@ permissions:
 
 jobs:
   deploy:
+    if: vars.FIREBASE_HOSTING_AUTODEPLOY == 'enabled'
     runs-on: ubuntu-latest
     steps:
       - name: Check out project

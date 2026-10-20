@@ -23,6 +23,6 @@ The optional `npm run verify` command orchestrates a domain check, production bu
 
 ## Firebase Hosting
 
-The current deployment is at https://new-website-50b26.web.app. Deploy locally with `npm run build` followed by `npm run deploy`. The GitHub workflow also builds and tests before deploying on pushes to `main`; it requires the repository Actions secret `FIREBASE_SERVICE_ACCOUNT_NEW_WEBSITE_50B26`. Use Firebase CLI's `firebase init hosting:github` after GitHub CLI authentication to provision that secret automatically, or add the service-account JSON through GitHub repository Settings → Secrets and variables → Actions. Never commit the service-account JSON.
+The current deployment is at https://new-website-50b26.web.app. Deploy locally with `npm run build` followed by `npm run deploy`. GitHub automatic deployment is paused until the repository has the Actions secret `FIREBASE_SERVICE_ACCOUNT_NEW_WEBSITE_50B26` and variable `FIREBASE_HOSTING_AUTODEPLOY=enabled`. Firebase CLI's `firebase init hosting:github` can provision the secret; never commit service-account JSON. The main verification workflow (build, tests, evidence upload) runs on pushes and pull requests independently.
 
 See [requirements.md](./requirements.md) for requirements, test cases, and domain lookup notes.
