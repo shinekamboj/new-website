@@ -1,0 +1,8 @@
+{
+  "domain": "pixelpalsarcade.com",
+  "checkedDate": "2026-10-20",
+  "httpStatus": 404,
+  "result": "No RDAP registration record found; appears available at lookup time.",
+  "source": "https://rdap.verisign.com/com/v1/domain/pixelpalsarcade.com",
+  "disclaimer": "Point-in-time RDAP evidence only; not a reservation, purchase, or guarantee. Confirm with a registrar."
+}

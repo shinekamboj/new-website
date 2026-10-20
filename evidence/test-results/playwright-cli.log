@@ -1,0 +1,22 @@
+Command: npx playwright test
+Run started: 2026-10-20T06:24:10.819Z
+Browser: Chromium 156.0.8078.4
+Workers: 1
+
+PASS TC-01/02: kids collection has five educational picks across categories (3.0s)
+PASS TC-03: grown-up collection opens directly and contains five general-audience games (2.2s)
+PASS TC-14: every catalog game opens its playable activity (7.5s)
+PASS TC-04/06: search finds matches and handles empty results (3.2s)
+PASS TC-05: category filters and All games restore the collection (1.8s)
+PASS TC-07: Math Meteor gives answer feedback and records a score (3.1s)
+PASS TC-08: Word Wild handles a wrong answer and completes its rounds (2.6s)
+PASS TC-09: Neon Drift handles an early tap and returns a reaction time (4.0s)
+PASS TC-14: grown-up adventure and resource games show choice outcomes and recovery evidence (4.1s)
+PASS TC-10: footer has collection links and switches collections (2.2s)
+PASS TC-11: mobile layout fits a narrow phone and is captured as evidence (1.4s)
+PASS TC-12: tablet and desktop layouts fit their viewport (2.8s)
+PASS TC-13: keyboard focus is visible and Escape closes a game dialog (1.6s)
+
+Result: 13 passed, 0 failed, 0 skipped, 0 flaky.
+Duration: 42.5s
+Process exit code: 0

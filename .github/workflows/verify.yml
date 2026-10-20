@@ -1,0 +1,39 @@
+name: Verify website
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out project
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Check domain
+        run: npm run check:domain
+      - name: Build production site
+        run: npm run build
+      - name: Run Playwright CLI tests
+        run: npx playwright test
+      - name: Upload verification evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pixel-pals-arcade-evidence
+          path: evidence/
+          if-no-files-found: warn
+          retention-days: 30
