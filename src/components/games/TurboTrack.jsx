@@ -163,7 +163,7 @@ class TurboTrackScene extends Phaser.Scene {
     this.clockElapsed = 0;
     this.hudElapsed = 0;
     this.car.setPosition(320, 75).setRotation(0);
-    this.game.events.emit('turbo-status', 'racing');
+    this.game.events.emit('turbo-status', { status: 'racing', lap: this.lap, seconds: this.seconds });
     this.emitHud();
   }
 
@@ -171,7 +171,7 @@ class TurboTrackScene extends Phaser.Scene {
     if (this.raceState !== 'racing') return;
     this.raceState = state;
     this.controls = { left: false, right: false, gas: false, brake: false };
-    this.game.events.emit('turbo-status', state);
+    this.game.events.emit('turbo-status', { status: state, lap: this.lap, seconds: this.seconds });
   }
 
   update(_time, deltaMs) {
@@ -230,12 +230,14 @@ class TurboTrackScene extends Phaser.Scene {
   }
 }
 
-export default function TurboTrack() {
+export default function TurboTrack({ onComplete }) {
   const mountRef = useRef(null);
   const gameRef = useRef(null);
   const [status, setStatus] = useState('ready');
   const [hud, setHud] = useState({ lap: 0, seconds: 60, speed: 0, heading: 0 });
   const [gameReady, setGameReady] = useState(false);
+  const onCompleteRef = useRef(onComplete);
+  onCompleteRef.current = onComplete;
 
   useEffect(() => {
     const game = new Phaser.Game({
@@ -250,14 +252,21 @@ export default function TurboTrack() {
       render: { pixelArt: false, roundPixels: true },
     });
     const handleReady = () => setGameReady(true);
+    const handleRaceStatus = (event) => {
+      const race = typeof event === 'string' ? { status: event } : event;
+      setStatus(race.status);
+      if (race.status === 'won' || race.status === 'timeout') {
+        onCompleteRef.current?.({ score: race.lap, total: 3, metric: 'laps', details: { result: race.status, secondsLeft: race.seconds } });
+      }
+    };
     gameRef.current = game;
     game.events.on('turbo-ready', handleReady);
     game.events.on('turbo-hud', setHud);
-    game.events.on('turbo-status', setStatus);
+    game.events.on('turbo-status', handleRaceStatus);
     return () => {
       game.events.off('turbo-ready', handleReady);
       game.events.off('turbo-hud', setHud);
-      game.events.off('turbo-status', setStatus);
+      game.events.off('turbo-status', handleRaceStatus);
       game.destroy(true);
       gameRef.current = null;
     };

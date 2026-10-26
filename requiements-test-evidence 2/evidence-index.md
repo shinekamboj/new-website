@@ -24,6 +24,8 @@ Evidence copied from the project’s latest Playwright run. Open the HTML report
 | TC-19 — login and About Us | [Login popup](evidence/screenshots/tc-19-login-popup.png) · [About Us footer](evidence/screenshots/tc-19-about-us-footer.png) |
 | TC-20 — science-game visuals | [Dino Lab fossil](evidence/screenshots/tc-20-dino-visual.png) · [Planet Pals Earth](evidence/screenshots/tc-20-planet-visual.png) |
 | TC-21 — Code Camp 3D-style visuals | [Number pattern](evidence/screenshots/tc-21-code-camp-pattern.png) · [Robot steps](evidence/screenshots/tc-21-code-camp-robot.png) · [Repeat loop](evidence/screenshots/tc-21-code-camp-loop.png) |
+| TC-22 — Firebase persistence | Manual check required: create an account and finish a game; inspect `users/{uid}/gameResults` in Firestore. |
+| TC-22 — Firebase persistence | Manual check required with a Firebase test account; user profile path `users/{uid}` and scores subcollection `users/{uid}/gameResults` |
 
 ## Run artifacts
 

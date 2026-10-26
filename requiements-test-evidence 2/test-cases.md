@@ -22,9 +22,11 @@ Automated using Playwright + Chromium. The latest run completed with **20 passed
 | TC-16 | Play Turbo Track | Phaser canvas starts; keyboard accelerates; tapping steering changes heading; brake tap reduces speed | PASS |
 | TC-17 | Play Gem Runner 3D | Three.js scene renders; start works and the touch lane control changes lanes | PASS |
 | TC-18 | Open a game card | Clicking or keyboard-activating a card opens its game popup | PASS |
-| TC-19 | Login and About Us | Login popup shows a safe preview notice; footer About Us link opens its section | PASS |
+| TC-19 | Login and About Us | Firebase login form opens; footer About Us link opens its section | PASS |
 | TC-20 | Dino Lab and Planet Pals visuals | Each science question displays its matching 3D-style image | PASS |
 | TC-21 | Code Camp beginner mode | Easier questions and matching 3D-style image appear each round; all answers can be completed | PASS |
+| TC-22 | Firebase data persistence | Sign up with a test account, finish a game, then inspect Auth and Firestore | User profile and game result appear under the same UID | MANUAL: requires a real test account |
+| TC-22 | Firebase data persistence | Sign up with a test account, finish a game, then inspect Firebase Auth and Firestore | Account/profile and completed game result appear under the same UID | MANUAL: use your own test account; no credentials collected here |
 
 ## How to rerun
 

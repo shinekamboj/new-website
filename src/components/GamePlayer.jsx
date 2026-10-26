@@ -1,11 +1,11 @@
-import React, { lazy, Suspense, useEffect, useRef, useState } from 'react';
+import React, { lazy, Suspense, useCallback, useEffect, useRef, useState } from 'react';
 import { challenges } from '../data/challenges.js';
 import MathVisualizer from './games/MathVisualizer.jsx';
 
 const TurboTrack = lazy(() => import('./games/TurboTrack.jsx'));
 const GemRunner3D = lazy(() => import('./games/GemRunner3D.jsx'));
 
-function Quiz({ challenge }) {
+function Quiz({ challenge, onComplete }) {
   const [questionIndex, setQuestionIndex] = useState(0);
   const [choice, setChoice] = useState(null);
   const [score, setScore] = useState(0);
@@ -19,8 +19,9 @@ function Quiz({ challenge }) {
   }
 
   function next() {
-    if (questionIndex === challenge.questions.length - 1) {
-      setFinished(true);
+      if (questionIndex === challenge.questions.length - 1) {
+        onComplete?.({ score, total: challenge.questions.length, metric: 'correctAnswers' });
+        setFinished(true);
       return;
     }
     setQuestionIndex((value) => value + 1);
@@ -75,7 +76,7 @@ function Result({ score, total, onRestart }) {
   );
 }
 
-function WordGame({ challenge }) {
+function WordGame({ challenge, onComplete }) {
   const [round, setRound] = useState(0);
   const [word, setWord] = useState('');
   const [checked, setChecked] = useState(false);
@@ -93,7 +94,10 @@ function WordGame({ challenge }) {
   }
 
   function next() {
-    if (round === challenge.rounds.length - 1) setFinished(true);
+    if (round === challenge.rounds.length - 1) {
+      onComplete?.({ score, total: challenge.rounds.length, metric: 'correctWords' });
+      setFinished(true);
+    }
     else { setRound((value) => value + 1); setWord(''); setChecked(false); }
   }
 
@@ -121,7 +125,7 @@ function WordGame({ challenge }) {
   );
 }
 
-function ReflexGame() {
+function ReflexGame({ onComplete }) {
   const [status, setStatus] = useState('ready');
   const [reaction, setReaction] = useState(null);
   const startTime = useRef(0);
@@ -141,8 +145,10 @@ function ReflexGame() {
       window.clearTimeout(timer.current);
       setStatus('early');
     } else if (status === 'go') {
-      setReaction(Math.round(performance.now() - startTime.current));
+      const elapsed = Math.round(performance.now() - startTime.current);
+      setReaction(elapsed);
       setStatus('result');
+      onComplete?.({ score: elapsed, total: null, metric: 'reactionMs' });
     }
   }
 
@@ -161,18 +167,18 @@ function ReflexGame() {
   );
 }
 
-function StoryGame({ challenge }) {
+function StoryGame({ challenge, onComplete }) {
   const [result, setResult] = useState(null);
   return (
     <div className="challenge-panel story-panel">
       <p className="challenge-progress">YOUR ADVENTURE <span>🗺️</span></p>
       <h3 className="challenge-prompt">{challenge.prompt}</h3>
-      {!result ? <div className="answer-grid">{challenge.choices.map((choice) => <button className="answer-option story-option" type="button" key={choice.label} onClick={() => setResult(choice.result)}>{choice.label}</button>)}</div> : <div className="story-ending" role="status"><span>✨</span><p>{result}</p><button className="confirm-button" type="button" onClick={() => setResult(null)}>Play again ↻</button></div>}
+      {!result ? <div className="answer-grid">{challenge.choices.map((choice) => <button className="answer-option story-option" type="button" key={choice.label} onClick={() => { setResult(choice.result); onComplete?.({ score: 1, total: challenge.choices.length, metric: 'storyChoice', details: { ending: choice.label } }); }}>{choice.label}</button>)}</div> : <div className="story-ending" role="status"><span>✨</span><p>{result}</p><button className="confirm-button" type="button" onClick={() => setResult(null)}>Play again ↻</button></div>}
     </div>
   );
 }
 
-function ResourceGame() {
+function ResourceGame({ onComplete }) {
   const [energy, setEnergy] = useState(2);
   const [parts, setParts] = useState(0);
   const [turns, setTurns] = useState(0);
@@ -187,8 +193,13 @@ function ResourceGame() {
     if (action === 'battery' && nextParts > 0) { nextParts -= 1; nextEnergy += 4; }
     const nextTurns = turns + 1;
     setEnergy(nextEnergy); setParts(nextParts); setTurns(nextTurns);
-    if (nextEnergy >= 7) setStatus('won');
-    else if (nextTurns >= 3) setStatus('lost');
+    if (nextEnergy >= 7) {
+      setStatus('won');
+      onComplete?.({ score: nextEnergy, total: 7, metric: 'energy', details: { outcome: 'won', turns: nextTurns } });
+    } else if (nextTurns >= 3) {
+      setStatus('lost');
+      onComplete?.({ score: nextEnergy, total: 7, metric: 'energy', details: { outcome: 'lost', turns: nextTurns } });
+    }
   }
 
   function restart() { setEnergy(2); setParts(0); setTurns(0); setStatus('playing'); }
@@ -203,23 +214,32 @@ function ResourceGame() {
   );
 }
 
-function StarCatcherGame() {
+function StarCatcherGame({ onComplete }) {
   const canvasRef = useRef(null);
   const keys = useRef(new Set());
   const shipX = useRef(320);
   const items = useRef([]);
   const scoreRef = useRef(0);
   const livesRef = useRef(3);
+  const completedRef = useRef(false);
   const [status, setStatus] = useState('ready');
   const [score, setScore] = useState(0);
   const [lives, setLives] = useState(3);
   const [seconds, setSeconds] = useState(30);
+
+  function finishGame() {
+    if (completedRef.current) return;
+    completedRef.current = true;
+    setStatus('over');
+    onComplete?.({ score: scoreRef.current, total: null, metric: 'stars', details: { livesRemaining: livesRef.current } });
+  }
 
   function start() {
     shipX.current = 320;
     items.current = [];
     scoreRef.current = 0;
     livesRef.current = 3;
+    completedRef.current = false;
     setScore(0);
     setLives(3);
     setSeconds(30);
@@ -231,7 +251,7 @@ function StarCatcherGame() {
     const timer = window.setInterval(() => {
       setSeconds((value) => {
         if (value <= 1) {
-          setStatus('over');
+          finishGame();
           return 0;
         }
         return value - 1;
@@ -297,7 +317,7 @@ function StarCatcherGame() {
           } else {
             livesRef.current -= 1;
             setLives(livesRef.current);
-            if (livesRef.current <= 0) setStatus('over');
+            if (livesRef.current <= 0) finishGame();
           }
           return false;
         }
@@ -376,8 +396,21 @@ function StarCatcherGame() {
   );
 }
 
-export default function GamePlayer({ game, onClose }) {
+export default function GamePlayer({ game, user, onSaveResult, onClose }) {
   const challenge = challenges[game.id];
+  const [saveStatus, setSaveStatus] = useState('');
+
+  const onComplete = useCallback((result) => {
+    if (!user?.uid || !onSaveResult) return;
+    setSaveStatus('saving');
+    onSaveResult(game, result).then(
+      () => setSaveStatus('saved'),
+      (error) => {
+        console.error('Could not save game result:', error);
+        setSaveStatus('error');
+      },
+    );
+  }, [game, onSaveResult, user?.uid]);
 
   useEffect(() => {
     function closeOnEscape(event) { if (event.key === 'Escape') onClose(); }
@@ -387,14 +420,14 @@ export default function GamePlayer({ game, onClose }) {
 
   if (!challenge) return null;
   const gameContent = {
-    quiz: <Quiz challenge={challenge} />,
-    word: <WordGame challenge={challenge} />,
-    reflex: <ReflexGame />,
-    story: <StoryGame challenge={challenge} />,
-    resource: <ResourceGame />,
-    arcade: <StarCatcherGame />,
-    racing: <Suspense fallback={<div className="challenge-panel">Loading Turbo Track…</div>}><TurboTrack /></Suspense>,
-    'three-dimensional': <Suspense fallback={<div className="challenge-panel">Loading 3D game…</div>}><GemRunner3D /></Suspense>,
+    quiz: <Quiz challenge={challenge} onComplete={onComplete} />,
+    word: <WordGame challenge={challenge} onComplete={onComplete} />,
+    reflex: <ReflexGame onComplete={onComplete} />,
+    story: <StoryGame challenge={challenge} onComplete={onComplete} />,
+    resource: <ResourceGame onComplete={onComplete} />,
+    arcade: <StarCatcherGame onComplete={onComplete} />,
+    racing: <Suspense fallback={<div className="challenge-panel">Loading Turbo Track…</div>}><TurboTrack onComplete={onComplete} /></Suspense>,
+    'three-dimensional': <Suspense fallback={<div className="challenge-panel">Loading 3D game…</div>}><GemRunner3D onComplete={onComplete} /></Suspense>,
   }[challenge.mode];
 
   return (
@@ -406,7 +439,7 @@ export default function GamePlayer({ game, onClose }) {
         <h2 id="player-title">{game.title}</h2>
         <p className="player-instructions">{challenge.instructions}</p>
         {gameContent}
-        <small>Just for fun. No account or personal information needed.</small>
+        <small>{user ? saveStatus === 'saving' ? 'Saving your result to Firebase…' : saveStatus === 'saved' ? '☁ Result saved to your Firebase account.' : saveStatus === 'error' ? 'Result could not be saved. Check Firestore rules and try again.' : 'Your finished game results sync to your Firebase account.' : 'Just for fun. Log in to save your game results.'}</small>
       </section>
     </div>
   );

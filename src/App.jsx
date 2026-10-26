@@ -1,4 +1,5 @@
-import React, { useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { onAuthStateChanged, signOut } from 'firebase/auth';
 import CategoryTabs from './components/CategoryTabs.jsx';
 import Footer from './components/Footer.jsx';
 import GameCard from './components/GameCard.jsx';
@@ -6,6 +7,7 @@ import GamePlayer from './components/GamePlayer.jsx';
 import Header from './components/Header.jsx';
 import LoginModal from './components/LoginModal.jsx';
 import { games } from './data/games.js';
+import { auth, saveGameResult } from './firebase.js';
 
 export default function App() {
   const [audience, setAudience] = useState('kids');
@@ -13,6 +15,9 @@ export default function App() {
   const [search, setSearch] = useState('');
   const [selectedGame, setSelectedGame] = useState(null);
   const [loginOpen, setLoginOpen] = useState(false);
+  const [user, setUser] = useState(null);
+
+  useEffect(() => onAuthStateChanged(auth, setUser), []);
 
   const audienceGames = useMemo(() => games.filter((game) => game.audience === audience), [audience]);
   const categories = useMemo(() => ['All games', ...new Set(audienceGames.map((game) => game.category))], [audienceGames]);
@@ -31,9 +36,22 @@ export default function App() {
     setSearch('');
   }
 
+  async function logout() {
+    try {
+      await signOut(auth);
+    } catch (error) {
+      console.error('Could not sign out:', error);
+    }
+  }
+
+  const recordGameResult = useCallback((game, result) => {
+    if (!user?.uid) return Promise.resolve();
+    return saveGameResult(user.uid, game.id, game.title, result);
+  }, [user?.uid]);
+
   return (
     <div className={`app-shell audience-${audience}`} id="top">
-      <Header audience={audience} onAudienceChange={changeAudience} search={search} onSearch={setSearch} onLogin={() => setLoginOpen(true)} />
+      <Header audience={audience} onAudienceChange={changeAudience} search={search} onSearch={setSearch} onLogin={() => setLoginOpen(true)} user={user} onLogout={logout} />
 
       <main>
         <section className="hero" aria-labelledby="hero-title">
@@ -97,7 +115,7 @@ export default function App() {
       </main>
 
       <Footer onAudienceChange={changeAudience} />
-      {selectedGame && <GamePlayer key={selectedGame.id} game={selectedGame} onClose={() => setSelectedGame(null)} />}
+      {selectedGame && <GamePlayer key={selectedGame.id} game={selectedGame} user={user} onSaveResult={recordGameResult} onClose={() => setSelectedGame(null)} />}
       {loginOpen && <LoginModal onClose={() => setLoginOpen(false)} />}
     </div>
   );

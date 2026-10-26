@@ -13,7 +13,8 @@
 - Check domain availability and use the available domain's name for branding.
 - Maintain test evidence alongside the implementation.
 - Deploy the React site to Firebase Hosting using the new Firebase project.
-- Include a header login-preview popup and About Us footer content. Do not imply real authentication until an auth backend exists.
+- Include a Firebase email/password login popup in the header and About Us content in the footer.
+- Allow account creation/sign-in through Firebase Authentication; save each user's profile and completed game results to their own Firestore path.
 
 ## Decisions and assumptions
 
@@ -22,7 +23,7 @@
 - Thirteen original browser games are included: eight activities for kids and five general-audience games for grown-ups. Math Meteor explains arithmetic with animated 3D-style counting boxes; Word Wild shows a dimensional illustration for every word; Turbo Track uses Phaser 4 and Gem Runner 3D uses Three.js. Games are self-contained, not externally hosted commercial games.
 - Search matches game titles, categories, descriptions, and tags within the selected collection. Category chips also filter the current collection.
 - Visual identity uses a gaming-themed background and responsive layouts. Footer includes About Us, collection links, and a general-audience play reminder.
-- No account, analytics, or personal information is required for play.
+- No account is required to play. Optional accounts use Firebase Auth; game-result data is stored only for the signed-in user. No analytics are used.
 
 ## Acceptance criteria
 
@@ -36,10 +37,11 @@
 8. Automated Playwright runs save test reports and relevant screenshots as evidence.
 9. The production build is deployed to Firebase Hosting; GitHub Actions verification runs on pushes. Hosting auto-deploy becomes active after its service-account secret and enable variable are configured.
 10. Clicking a game card or Play button opens the playable popup; category, collection, and game controls retain their normal behavior.
-11. Header Login opens a safe preview form without claiming successful sign-in or sending/storing credentials.
+11. Header supports Firebase email/password sign-in and signup; Firebase owns passwords and the UI shows signed-in state.
 12. Footer includes an About Us link and section.
 13. Dino Lab and Planet Pals show a question-matched 3D-style illustration for each quiz question.
 14. Code Camp uses simpler child-friendly questions and a relevant 3D-style image for each question.
+15. Signup creates a Firebase Auth account and profile; finishing a game stores a result in the signed-in user's Firestore subcollection, protected by owner-only rules.
 
 ## Domain check
 
@@ -121,9 +123,11 @@ gaming website/
 | TC-13 | Keyboard and dialog controls | Open the site with keyboard navigation | Tab through controls; open a game and press Escape | Focus is visible, controls are reachable, dialog is named and Escape closes it | High |
 | TC-14 | Every game is playable | Open each collection | Launch each of the thirteen cards | Every card opens its own working game activity | High |
 | TC-18 | Game card popup | Open the kids' collection | Click a card, or focus it and press Enter | The selected game opens in its playable popup | High |
-| TC-19 | Login and About Us | Open the home page | Open Login, submit preview form, then use footer About Us link | Safe not-configured notice appears; About Us section is reachable | Medium |
+| TC-19 | Login and About Us | Open the home page | Open Firebase Login form and use footer About Us link | Login form appears; About Us section is reachable | Medium |
 | TC-20 | Science-game visuals | Open Dino Lab and Planet Pals | Advance through each question | Matching dino/fossil and solar-system image appears with each question | Medium |
 | TC-21 | Code Camp difficulty and visuals | Open Code Camp | View each image, answer the three questions | Beginner-friendly questions and matching 3D-style visuals appear; final score is shown | High |
+| TC-22 | Firebase data persistence | Create a test account and finish a game | Inspect Firebase Authentication and Firestore | Auth user, `users/{uid}` profile, and `gameResults` record are present | High |
+| TC-22 | Firebase data persistence | Use a test account and finish a game | Inspect Firebase Authentication and Firestore | User appears in Auth; `users/{uid}` profile and `gameResults` record are stored | High |
 
 ## Test evidence
 
@@ -141,6 +145,7 @@ Test evidence is stored under `evidence/`:
 - `.github/workflows/verify.yml` — repeats verification on pushes and pull requests and uploads the evidence artifact.
 - `.github/workflows/firebase-hosting.yml` — builds/tests and deploys to Firebase Hosting on pushes to `main` when `FIREBASE_HOSTING_AUTODEPLOY=enabled` and secret `FIREBASE_SERVICE_ACCOUNT_NEW_WEBSITE_50B26` are configured.
 - `firebase.json` and `.firebaserc` — Firebase Hosting configuration for project `new-website-50b26`.
+- `firestore.rules` — owner-only access for each user's profile and game results. Rules deployed to the existing Firestore database on 2026-10-26.
 
 Manual browser smoke check (2026-10-20): the home page rendered in the browser and the console was clear after a React runtime-import issue was fixed. Screenshot: `evidence/screenshots/00-browser-preview.png`.
 

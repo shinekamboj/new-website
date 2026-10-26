@@ -22,6 +22,7 @@ The HTML report contains the same screenshots attached to each Playwright test. 
 | TC-19 — Login and About Us | [Login popup](screenshots/tc-19-login-popup.png), [About Us footer](screenshots/tc-19-about-us-footer.png) |
 | TC-20 — science-game visuals | [Dino Lab fossil](screenshots/tc-20-dino-visual.png), [Planet Pals Earth](screenshots/tc-20-planet-visual.png) |
 | TC-21 — Code Camp visuals | [Number pattern](screenshots/tc-21-code-camp-pattern.png), [Robot steps](screenshots/tc-21-code-camp-robot.png), [Repeat loop](screenshots/tc-21-code-camp-loop.png) |
+| TC-22 — Firebase persistence | Manual check with a real account: inspect `users/{uid}` and its `gameResults` subcollection in Firestore. |
 
 ## Run artifacts
 

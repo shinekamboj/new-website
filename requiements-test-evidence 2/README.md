@@ -14,11 +14,11 @@ This folder is a shareable copy of the project requirements, test cases, and ver
 - Front end: React 19 with Vite.
 - Game engine: Phaser 4 for Turbo Track's 2D racing gameplay.
 - 3D engine: Three.js for Gem Runner 3D.
-- Header includes a login-preview popup; footer includes About Us. Authentication is not connected.
+- Firebase email/password signup/login saves profiles and completed game results to Firestore; footer includes About Us.
 - Catalog: 13 playable browser games (8 kids' games, 5 grown-ups' games).
 - Tests: Playwright using Chromium.
 - Latest recorded run: **20 tests passed, 0 failed**.
-- To run the website from the project root: `npm.cmd run dev -- --port 4173` (PowerShell) and open `http://localhost:4173`.
+- To run the website from the project root: `npm.cmd run dev -- --port 4175` (PowerShell) and open `http://localhost:4175`.
 - To rerun tests from the project root: `npm.cmd exec playwright test`.
 
 These documents and evidence are a copy; the working source code and original evidence remain in the project root and its `evidence/` folder.

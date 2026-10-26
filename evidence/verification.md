@@ -3,6 +3,7 @@
 - Date: 2026-10-26
 - Playwright command: `npm.cmd exec playwright test` (direct CLI run)
 - Playwright direct CLI run: latest run on 2026-10-26 — **20 passed, 0 failed, 0 skipped, 0 flaky**.
+- Firebase Auth/Firestore client build passes; live data persistence needs a real test account to complete sign-up and finish a game.
 - Build: `npm run build` — passed
 - Browser: Chromium 156.0.8078.4
 - Evidence screenshots: latest Playwright screenshots, including game-card popup, plus earlier manual browser preview in `evidence/screenshots/`

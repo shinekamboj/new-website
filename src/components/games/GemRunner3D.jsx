@@ -9,10 +9,12 @@ function makeMaterial(color, options = {}) {
   return new THREE.MeshStandardMaterial({ color, roughness: 0.62, metalness: 0.04, ...options });
 }
 
-export default function GemRunner3D() {
+export default function GemRunner3D({ onComplete }) {
   const mountRef = useRef(null);
   const runtimeRef = useRef(null);
   const statusRef = useRef('ready');
+  const onCompleteRef = useRef(onComplete);
+  onCompleteRef.current = onComplete;
   const [status, setStatus] = useState('ready');
   const [hud, setHud] = useState({ gems: 0, distance: 0, lane: 1 });
   const [gameReady, setGameReady] = useState(false);
@@ -160,6 +162,7 @@ export default function GemRunner3D() {
         scene, camera, renderer, player, items, lane: 1, targetLane: 1,
         gems: 0, distance: 0, speed: 11, jumpVelocity: 0, spawnTimer: 0,
         hudTimer: 0, status: 'ready',
+        resultSaved: false,
         setLane(direction) {
           if (this.status !== 'playing') return;
           this.targetLane = THREE.MathUtils.clamp(this.targetLane + direction, 0, 2);
@@ -178,6 +181,7 @@ export default function GemRunner3D() {
           this.distance = 0;
           this.speed = 11;
           this.jumpVelocity = 0;
+          this.resultSaved = false;
           this.spawnTimer = 2.5;
           this.hudTimer = 0;
           this.player.position.set(LANE_X[1], 0, 1.7);
@@ -192,6 +196,10 @@ export default function GemRunner3D() {
           this.status = 'over';
           statusRef.current = 'over';
           setStatus('over');
+          if (!this.resultSaved) {
+            this.resultSaved = true;
+            onCompleteRef.current?.({ score: this.gems, total: null, metric: 'gems', details: { distance: Math.floor(this.distance) } });
+          }
         },
       };
       runtimeRef.current = runtime;

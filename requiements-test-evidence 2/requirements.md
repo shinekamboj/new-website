@@ -18,7 +18,8 @@
 
 - React 19 + Vite front end; no separate backend is required to play.
 - 13 browser games: 8 kids' games and 5 general-audience games for grown-ups.
-- Header login opens a preview form; About Us information is available in the footer. No authentication service is configured.
+- Firebase email/password signup/login creates an Auth account, saves a user profile, and persists completed game results in Firestore; About Us information is available in the footer.
+- Firestore rules restrict profile and result reads/writes to the authenticated owner; rules were deployed to project `new-website-50b26` on 2026-10-26.
 - **Star Catcher** is a React-integrated Canvas arcade game: steer with arrow keys/A-D or touch controls, collect stars, avoid rocks, and track score, lives, and time.
 - **Math Meteor** uses animated, isometric 3D-style boxes to visually count addition, subtraction, and multiplication step by step.
 - **Word Wild** pairs each scramble round with its own dimensional illustration (cat, star, and grassy plain) that gently floats in a 3D-styled scene.

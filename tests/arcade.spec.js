@@ -277,17 +277,21 @@ test('TC-18: clicking or keyboard-activating a game card opens its popup', async
   await dialog.getByRole('button', { name: 'Close game' }).click();
 });
 
-test('TC-19: header login opens a safe preview form and footer has About Us', async ({ page }, testInfo) => {
+test('TC-19: header login opens the Firebase form and footer has About Us', async ({ page }, testInfo) => {
   await page.goto('/');
   await page.getByRole('button', { name: 'Log in' }).click();
-  const login = page.getByRole('dialog', { name: 'Welcome back' });
+  const login = page.locator('.login-modal');
   await expect(login.getByLabel('Email address')).toBeVisible();
   await expect(login.getByLabel('Password')).toBeVisible();
-  await login.getByLabel('Email address').fill('player@example.com');
-  await login.getByLabel('Password').fill('preview-password');
-  await login.getByRole('button', { name: 'Log in' }).click();
-  await expect(login.getByRole('status')).toContainText(/not connected yet/i);
+  await expect(login.getByLabel('Email address')).toHaveAttribute('required', '');
+  await expect(login.getByLabel('Password')).toHaveAttribute('required', '');
+  await expect(login.getByRole('button', { name: 'Log in' })).toBeEnabled();
   await captureEvidence(page, testInfo, 'tc-19-login-popup.png', false);
+  await login.getByRole('button', { name: /Create an account/ }).click();
+  await expect(login.getByRole('heading', { name: 'Create your account' })).toBeVisible();
+  await expect(login.getByLabel('Confirm password')).toBeVisible();
+  await login.getByRole('button', { name: /Already have an account/ }).click();
+  await expect(login.getByRole('heading', { name: 'Welcome back' })).toBeVisible();
   await login.getByRole('button', { name: 'Close login' }).click();
   await page.locator('footer').getByRole('link', { name: 'About us' }).click();
   await expect(page).toHaveURL(/#about-us/);

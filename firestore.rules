@@ -1,0 +1,40 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function ownsUser(userId) {
+      return request.auth != null && request.auth.uid == userId;
+    }
+
+    match /users/{userId} {
+      allow get, list: if ownsUser(userId);
+      allow create: if ownsUser(userId)
+        && request.resource.data.keys().hasOnly(['uid', 'email', 'displayName', 'createdAt', 'lastLoginAt'])
+        && request.resource.data.uid == userId
+        && request.resource.data.email == request.auth.token.email
+        && request.resource.data.createdAt == request.time
+        && request.resource.data.lastLoginAt == request.time;
+      allow update: if ownsUser(userId)
+        && request.resource.data.keys().hasOnly(['uid', 'email', 'displayName', 'createdAt', 'lastLoginAt'])
+        && request.resource.data.uid == userId
+        && request.resource.data.email == request.auth.token.email
+        && request.resource.data.createdAt == resource.data.createdAt
+        && request.resource.data.lastLoginAt == request.time;
+      allow delete: if false;
+
+      match /gameResults/{resultId} {
+        allow get, list: if ownsUser(userId);
+        allow create: if ownsUser(userId)
+          && request.resource.data.keys().hasOnly(['gameId', 'gameTitle', 'score', 'total', 'metric', 'details', 'createdAt'])
+          && request.resource.data.gameId is string
+          && request.resource.data.gameTitle is string
+          && request.resource.data.score is int
+          && request.resource.data.score >= 0
+          && request.resource.data.metric is string
+          && request.resource.data.details is map
+          && request.resource.data.createdAt == request.time
+          && (!('total' in request.resource.data) || request.resource.data.total == null || request.resource.data.total is int);
+        allow update, delete: if false;
+      }
+    }
+  }
+}
