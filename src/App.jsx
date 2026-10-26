@@ -41,7 +41,7 @@ export default function App() {
             <p>Play colorful learning adventures for kids and hand-picked, feel-good games for grown-ups.</p>
             <a className="hero-button" href="#games">Explore games <span aria-hidden="true">↓</span></a>
             <div className="hero-stats" aria-label="Game collections">
-              <span><b>05</b> learning games</span><i /> <span><b>05</b> grown-up picks</span>
+              <span><b>08</b> kids' games</span><i /> <span><b>05</b> grown-up picks</span>
             </div>
           </div>
           <div className="hero-art" aria-hidden="true">
@@ -50,7 +50,7 @@ export default function App() {
             <span className="hero-star star-a">✦</span>
             <span className="hero-star star-b">✧</span>
             <span className="hero-star star-c">✦</span>
-            <div className="hero-console"><span>🎮</span><i /><i /><i /><i /></div>
+            <img className="hero-3d-image" src="/images/arcade-hero.svg" alt="" />
             <span className="float-pill pill-left">PLAY + LEARN</span>
             <span className="float-pill pill-right">LEVEL UP!</span>
           </div>

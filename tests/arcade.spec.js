@@ -13,11 +13,11 @@ async function captureEvidence(page, testInfo, filename, fullPage = true) {
   await testInfo.attach(filename, { path, contentType: 'image/png' });
 }
 
-test('TC-01/02: kids collection has five educational picks across categories', async ({ page }, testInfo) => {
+test('TC-01/02: kids collection has eight educational and arcade picks across categories', async ({ page }, testInfo) => {
   await page.goto('/');
   await expect(page).toHaveTitle(/Pixel Pals Arcade/);
   await expect(page.getByRole('heading', { name: 'Games for curious kids' })).toBeVisible();
-  await expect(page.locator('.game-card')).toHaveCount(5);
+  await expect(page.locator('.game-card')).toHaveCount(8);
   await expect(page.getByText('Math', { exact: true }).first()).toBeVisible();
   await expect(page.getByText('Words', { exact: true }).first()).toBeVisible();
   await expect(page.getByText('Science', { exact: true }).first()).toBeVisible();
@@ -37,7 +37,7 @@ test('TC-03: grown-up collection opens directly and contains five general-audien
 test('TC-14: every catalog game opens its playable activity', async ({ page }, testInfo) => {
   await page.goto('/');
   const collections = [
-    { audience: 'kids', titles: ['Math Meteor', 'Word Wild', 'Dino Lab', 'Planet Pals', 'Code Camp'] },
+    { audience: 'kids', titles: ['Math Meteor', 'Word Wild', 'Dino Lab', 'Planet Pals', 'Code Camp', 'Star Catcher', 'Turbo Track', 'Gem Runner 3D'] },
     { audience: 'adult', titles: ['Neon Drift', 'Mythic Realms', 'Outpost Zero', 'Shadow Circuit', 'Summit Bound'] },
   ];
 
@@ -55,6 +55,45 @@ test('TC-14: every catalog game opens its playable activity', async ({ page }, t
   }
 });
 
+test('TC-15: Star Catcher starts a keyboard-and-touch controlled arcade round', async ({ page }, testInfo) => {
+  await page.goto('/');
+  const card = page.locator('.game-card').filter({ hasText: 'Star Catcher' });
+  await card.getByRole('button', { name: /Play now/ }).click();
+  const dialog = page.getByRole('dialog', { name: 'Star Catcher' });
+  await dialog.getByRole('button', { name: 'Start game' }).click();
+  await expect(dialog.getByText('30s')).toBeVisible();
+  await expect(dialog.locator('canvas')).toBeVisible();
+  await captureEvidence(page, testInfo, 'tc-15-star-catcher-gameplay.png', false);
+  await page.keyboard.press('ArrowLeft');
+  await dialog.getByRole('button', { name: 'Move right' }).click();
+  await dialog.getByRole('button', { name: 'Close game' }).click();
+});
+
+test('TC-16: Turbo Track starts a Phaser race and responds to acceleration', async ({ page }, testInfo) => {
+  await page.goto('/');
+  const card = page.locator('.game-card').filter({ hasText: 'Turbo Track' });
+  await card.getByRole('button', { name: /Play now/ }).click();
+  const dialog = page.getByRole('dialog', { name: 'Turbo Track' });
+  await dialog.getByRole('button', { name: /Start race/ }).click();
+  await expect(dialog.getByText('LAP 0 / 3')).toBeVisible();
+  await expect(dialog.locator('.turbo-hud')).toContainText('🧭 0°');
+  await dialog.getByRole('button', { name: 'Steer right' }).click();
+  await expect(dialog.locator('.turbo-hud')).toContainText(/🧭 2\d°/);
+  await dialog.getByRole('button', { name: 'Steer left' }).click();
+  await expect(dialog.locator('.turbo-hud')).toContainText('🧭 0°');
+  await page.keyboard.down('ArrowUp');
+  await page.waitForTimeout(450);
+  await page.keyboard.up('ArrowUp');
+  await expect(dialog.locator('.turbo-hud')).toContainText(/⚡ [1-9]\d* km\/h/);
+  const speedBeforeBrake = Number((await dialog.locator('.turbo-hud').innerText()).match(/⚡\s*(\d+) km\/h/)?.[1] ?? 0);
+  await dialog.getByRole('button', { name: 'Brake' }).click();
+  await expect.poll(async () => Number((await dialog.locator('.turbo-hud').innerText()).match(/⚡\s*(\d+) km\/h/)?.[1] ?? 0)).toBeLessThan(speedBeforeBrake);
+  await dialog.getByRole('button', { name: 'Accelerate' }).click();
+  await expect(dialog.locator('.turbo-hud')).toContainText(/⚡ [1-9]\d* km\/h/);
+  await captureEvidence(page, testInfo, 'tc-16-turbo-track-racing.png', false);
+  await dialog.getByRole('button', { name: 'Close game' }).click();
+});
+
 test('TC-04/06: search finds matches and handles empty results', async ({ page }, testInfo) => {
   await page.goto('/');
   await page.getByRole('searchbox', { name: 'Search games' }).fill('math');
@@ -65,7 +104,7 @@ test('TC-04/06: search finds matches and handles empty results', async ({ page }
   await expect(page.getByRole('heading', { name: 'No games found' })).toBeVisible();
   await captureEvidence(page, testInfo, 'tc-06-empty-search.png');
   await page.getByRole('button', { name: 'Show all games' }).click();
-  await expect(page.locator('.game-card')).toHaveCount(5);
+  await expect(page.locator('.game-card')).toHaveCount(8);
   await captureEvidence(page, testInfo, 'tc-06-search-reset.png');
 });
 
@@ -75,7 +114,7 @@ test('TC-05: category filters and All games restore the collection', async ({ pa
   await expect(page.locator('.game-card')).toHaveCount(1);
   await captureEvidence(page, testInfo, 'tc-05-math-category.png');
   await page.getByRole('button', { name: /All games/ }).click();
-  await expect(page.locator('.game-card')).toHaveCount(5);
+  await expect(page.locator('.game-card')).toHaveCount(8);
 });
 
 test('TC-07: Math Meteor gives answer feedback and records a score', async ({ page }, testInfo) => {
@@ -178,7 +217,7 @@ test('TC-10: footer has collection links and switches collections', async ({ pag
 test('TC-11: mobile layout fits a narrow phone and is captured as evidence', async ({ page }, testInfo) => {
   await page.setViewportSize({ width: 375, height: 812 });
   await page.goto('/');
-  await expect(page.locator('.game-card')).toHaveCount(5);
+  await expect(page.locator('.game-card')).toHaveCount(8);
   const widths = await page.evaluate(() => ({ document: document.documentElement.scrollWidth, viewport: window.innerWidth }));
   expect(widths.document).toBeLessThanOrEqual(widths.viewport);
   await captureEvidence(page, testInfo, '05-kids-mobile.png');
@@ -190,7 +229,7 @@ test('TC-12: tablet and desktop layouts fit their viewport', async ({ page }, te
     await page.goto('/');
     const widths = await page.evaluate(() => ({ document: document.documentElement.scrollWidth, viewport: window.innerWidth }));
     expect(widths.document).toBeLessThanOrEqual(widths.viewport);
-    await expect(page.locator('.game-card')).toHaveCount(5);
+    await expect(page.locator('.game-card')).toHaveCount(8);
     await captureEvidence(page, testInfo, `tc-12-layout-${width}px.png`);
   }
 });

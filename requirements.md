@@ -49,7 +49,7 @@ Lookup sources: [pixelplayground.com](https://rdap.verisign.com/com/v1/domain/pi
 ## Project structure
 
 ```text
-new website/
+gaming website/
 ├── .github/
 │   └── workflows/
 │       ├── firebase-hosting.yml

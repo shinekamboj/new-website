@@ -4,3 +4,5 @@ dist/
 .firebase/
 playwright/.cache/
 evidence/test-results/*.zip
+
+requiements-test-evidence 2/

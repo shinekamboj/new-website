@@ -14,8 +14,10 @@
     "verify": "node scripts/verify.mjs"
   },
   "dependencies": {
+    "phaser": "^4.2.1",
     "react": "^19.1.0",
-    "react-dom": "^19.1.0"
+    "react-dom": "^19.1.0",
+    "three": "^0.186.1"
   },
   "devDependencies": {
     "@playwright/test": "^1.64.1",

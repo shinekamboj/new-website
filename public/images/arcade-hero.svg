@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="48 35 466 350" fill="none">
+  <defs>
+    <radialGradient id="halo" cx="0" cy="0" r="1" gradientTransform="matrix(0 190 -230 0 285 220)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#9F73FF" stop-opacity=".38"/>
+      <stop offset="1" stop-color="#5C45D8" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="shell" x1="130" x2="414" y1="130" y2="344" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFB0DA"/>
+      <stop offset=".42" stop-color="#B783FF"/>
+      <stop offset="1" stop-color="#6B72F7"/>
+    </linearGradient>
+    <linearGradient id="edge" x1="150" x2="398" y1="286" y2="364" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#744DC9"/>
+      <stop offset="1" stop-color="#403D9A"/>
+    </linearGradient>
+    <linearGradient id="screen" x1="207" x2="354" y1="171" y2="285" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#25225C"/>
+      <stop offset="1" stop-color="#111633"/>
+    </linearGradient>
+    <linearGradient id="sky" x1="228" x2="331" y1="177" y2="277" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#7C7BFF"/>
+      <stop offset="1" stop-color="#69DDF2"/>
+    </linearGradient>
+    <linearGradient id="buttonPink" x1="360" x2="385" y1="210" y2="239" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFB1D9"/>
+      <stop offset="1" stop-color="#F45EAA"/>
+    </linearGradient>
+    <linearGradient id="buttonYellow" x1="383" x2="408" y1="235" y2="264" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFF4A0"/>
+      <stop offset="1" stop-color="#FFB84D"/>
+    </linearGradient>
+    <linearGradient id="cubeFront" x1="80" x2="123" y1="73" y2="136" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#79F2DB"/>
+      <stop offset="1" stop-color="#33B8C3"/>
+    </linearGradient>
+    <linearGradient id="cubeSide" x1="123" x2="157" y1="80" y2="132" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#BD91FF"/>
+      <stop offset="1" stop-color="#7759D9"/>
+    </linearGradient>
+    <filter id="shadow" width="1.4" height="1.5" x="-.2" y="-.2" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="14"/>
+    </filter>
+    <filter id="glow" width="1.8" height="1.8" x="-.4" y="-.4" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="7"/>
+    </filter>
+    <clipPath id="screenClip">
+      <rect x="220" y="178" width="117" height="98" rx="17"/>
+    </clipPath>
+  </defs>
+
+  <ellipse cx="282" cy="224" fill="url(#halo)" rx="228" ry="188"/>
+  <ellipse cx="284" cy="357" fill="#5E49C6" opacity=".4" rx="158" ry="24" filter="url(#shadow)"/>
+  <ellipse cx="285" cy="229" stroke="#BEA9FF" stroke-opacity=".3" rx="218" ry="94" transform="rotate(-24 285 229)"/>
+  <ellipse cx="284" cy="226" stroke="#78E8E2" stroke-opacity=".24" rx="190" ry="128" transform="rotate(35 284 226)"/>
+
+  <!-- Floating arcade shapes -->
+  <g transform="translate(84 77) rotate(-13)">
+    <path d="m0 18 38-18 37 20-38 19L0 18Z" fill="#B9A0FF"/>
+    <path d="M0 18v43l37 21V39L0 18Z" fill="#79F2DB"/>
+    <path d="M37 39v43l38-20V20L37 39Z" fill="url(#cubeSide)"/>
+    <path d="m37 39 38-19-37-20L0 18l37 21Z" fill="#E0C9FF" fill-opacity=".5"/>
+    <path d="m13 25 24-12 24 13-24 12-24-13Z" fill="#FFF" fill-opacity=".22"/>
+  </g>
+  <circle cx="452" cy="120" r="27" fill="#FF73BE" opacity=".17" filter="url(#glow)"/>
+  <circle cx="452" cy="120" r="18" fill="url(#buttonPink)"/>
+  <path d="M445 113c5-6 14-5 18 1 3 5 0 12-5 15-5 3-12 0-15-5-3-4-2-8 2-11Z" fill="#FFD5EB" fill-opacity=".68"/>
+  <path d="m465 57 5 12 12 5-12 5-5 12-5-12-12-5 12-5 5-12Z" fill="#FFE879"/>
+  <path d="m106 292 4 9 9 4-9 4-4 9-4-9-9-4 9-4 4-9Z" fill="#7DF4DD"/>
+  <path d="m479 310 3 7 7 3-7 3-3 7-3-7-7-3 7-3 3-7Z" fill="#C5A7FF"/>
+
+  <!-- Isometric handheld console -->
+  <g transform="rotate(-11 280 230)">
+    <path d="M143 183c4-24 24-41 49-41h176c25 0 45 17 49 41l16 103c5 32-19 60-51 60h-30l-37-30H245l-37 30h-30c-32 0-56-28-51-60l16-103Z" fill="url(#edge)" transform="translate(0 15)"/>
+    <path d="M143 183c4-24 24-41 49-41h176c25 0 45 17 49 41l16 103c5 32-19 60-51 60h-30l-37-30H245l-37 30h-30c-32 0-56-28-51-60l16-103Z" fill="url(#shell)" stroke="#F7EFFF" stroke-opacity=".8" stroke-width="3"/>
+    <path d="M154 190c4-21 21-36 43-36h165c22 0 40 15 43 36l12 83c4 27-16 50-43 50h-17l-37-30H241l-37 30h-18c-27 0-47-23-43-50l11-83Z" fill="#FFFFFF" fill-opacity=".11"/>
+    <path d="M203 164h174c13 0 23 10 23 23v102c0 9-7 16-16 16H196c-9 0-16-7-16-16V187c0-13 10-23 23-23Z" fill="#6056B7" fill-opacity=".55"/>
+    <rect x="220" y="178" width="117" height="98" rx="17" fill="url(#screen)" stroke="#E6D9FF" stroke-opacity=".8" stroke-width="2"/>
+    <g clip-path="url(#screenClip)">
+      <rect x="220" y="178" width="117" height="98" fill="url(#sky)"/>
+      <circle cx="303" cy="199" r="16" fill="#FFE878"/>
+      <circle cx="303" cy="199" r="24" fill="#FFE878" opacity=".2"/>
+      <path d="m215 252 29-32 17 17 23-31 24 28 15-19 23 36v30H215v-29Z" fill="#8B71E8"/>
+      <path d="m215 266 32-24 21 16 23-22 17 15 22-18 22 27v24H215v-18Z" fill="#44D8C4"/>
+      <path d="m251 212 4 9 9 4-9 4-4 9-4-9-9-4 9-4 4-9Z" fill="#FFF"/>
+      <circle cx="235" cy="197" r="2.5" fill="#FFF"/>
+      <circle cx="276" cy="190" r="2" fill="#FFF"/>
+      <path d="M219 269h119" stroke="#B6F9E9" stroke-opacity=".7" stroke-width="2"/>
+    </g>
+    <path d="M177 213h17v-17h17v17h17v17h-17v17h-17v-17h-17v-17Z" fill="#F4EDFF"/>
+    <path d="M184 220h10v-10h10v10h10v10h-10v10h-10v-10h-10v-10Z" fill="#7664D7"/>
+    <circle cx="385" cy="211" r="15" fill="url(#buttonPink)" stroke="#FFE6F3" stroke-opacity=".8" stroke-width="2"/>
+    <circle cx="407" cy="242" r="15" fill="url(#buttonYellow)" stroke="#FFF4C7" stroke-opacity=".8" stroke-width="2"/>
+    <circle cx="363" cy="243" r="15" fill="#7EEBD5" stroke="#D8FFF6" stroke-opacity=".8" stroke-width="2"/>
+    <circle cx="385" cy="274" r="15" fill="#A991FF" stroke="#E9E0FF" stroke-opacity=".8" stroke-width="2"/>
+    <circle cx="381" cy="207" r="4" fill="#FFF" fill-opacity=".45"/>
+    <circle cx="403" cy="238" r="4" fill="#FFF" fill-opacity=".5"/>
+    <rect x="233" y="298" width="20" height="7" rx="3.5" fill="#5146A4"/>
+    <rect x="280" y="298" width="20" height="7" rx="3.5" fill="#5146A4"/>
+    <path d="M163 189c5-20 21-32 40-32" stroke="#FFF" stroke-opacity=".45" stroke-width="4" stroke-linecap="round"/>
+    <path d="M360 154c17 4 29 17 33 34" stroke="#FFF" stroke-opacity=".35" stroke-width="4" stroke-linecap="round"/>
+  </g>
+</svg>

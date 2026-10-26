@@ -44,6 +44,18 @@ export const challenges = {
       { prompt: 'Which instruction makes a character repeat an action?', choices: ['Loop', 'Pause', 'Stop', 'Color'], answer: 0, tip: 'A loop repeats an instruction.' },
     ],
   },
+  'star-catcher': {
+    mode: 'arcade',
+    instructions: 'Move your rocket to catch golden stars and dodge the space rocks. Use ← → or A/D, or the touch controls.',
+  },
+  'turbo-track': {
+    mode: 'racing',
+    instructions: 'Complete three laps around the track. Hold ↑ or W to accelerate, ←/→ or A/D to steer, and ↓ or S to brake. Touch controls work too.',
+  },
+  'gem-runner-3d': {
+    mode: 'three-dimensional',
+    instructions: 'Switch lanes to grab blue gems and avoid red blocks. Use ←/→ or A/D to move, and ↑, W, or Space to jump. Touch controls work too.',
+  },
   'neon-drift': {
     mode: 'reflex',
     instructions: 'Wait for the signal to turn green, then tap as quickly as you can. Don’t jump the start!',

@@ -1,5 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { lazy, Suspense, useEffect, useRef, useState } from 'react';
 import { challenges } from '../data/challenges.js';
+
+const TurboTrack = lazy(() => import('./games/TurboTrack.jsx'));
+const GemRunner3D = lazy(() => import('./games/GemRunner3D.jsx'));
 
 function Quiz({ challenge }) {
   const [questionIndex, setQuestionIndex] = useState(0);
@@ -181,6 +184,179 @@ function ResourceGame() {
   );
 }
 
+function StarCatcherGame() {
+  const canvasRef = useRef(null);
+  const keys = useRef(new Set());
+  const shipX = useRef(320);
+  const items = useRef([]);
+  const scoreRef = useRef(0);
+  const livesRef = useRef(3);
+  const [status, setStatus] = useState('ready');
+  const [score, setScore] = useState(0);
+  const [lives, setLives] = useState(3);
+  const [seconds, setSeconds] = useState(30);
+
+  function start() {
+    shipX.current = 320;
+    items.current = [];
+    scoreRef.current = 0;
+    livesRef.current = 3;
+    setScore(0);
+    setLives(3);
+    setSeconds(30);
+    setStatus('playing');
+  }
+
+  useEffect(() => {
+    if (status !== 'playing') return undefined;
+    const timer = window.setInterval(() => {
+      setSeconds((value) => {
+        if (value <= 1) {
+          setStatus('over');
+          return 0;
+        }
+        return value - 1;
+      });
+    }, 1000);
+    return () => window.clearInterval(timer);
+  }, [status]);
+
+  useEffect(() => {
+    if (status !== 'playing') return undefined;
+    const canvas = canvasRef.current;
+    const context = canvas.getContext('2d');
+    let frame;
+    let lastTime = 0;
+    let spawnTime = 0;
+    const width = canvas.width;
+    const height = canvas.height;
+
+    function drawStar(x, y, radius) {
+      context.beginPath();
+      for (let point = 0; point < 10; point += 1) {
+        const angle = (point * Math.PI) / 5 - Math.PI / 2;
+        const size = point % 2 === 0 ? radius : radius * 0.43;
+        const px = x + Math.cos(angle) * size;
+        const py = y + Math.sin(angle) * size;
+        if (point === 0) context.moveTo(px, py);
+        else context.lineTo(px, py);
+      }
+      context.closePath();
+      context.fill();
+    }
+
+    function tick(now) {
+      const delta = Math.min((now - (lastTime || now)) / 16.67, 2);
+      lastTime = now;
+      if (now - spawnTime > 720) {
+        items.current.push({ x: 28 + Math.random() * (width - 56), y: -18, type: Math.random() < 0.68 ? 'star' : 'rock', speed: 2.1 + Math.random() * 1.6 });
+        spawnTime = now;
+      }
+      if (keys.current.has('ArrowLeft') || keys.current.has('a')) shipX.current -= 5 * delta;
+      if (keys.current.has('ArrowRight') || keys.current.has('d')) shipX.current += 5 * delta;
+      shipX.current = Math.max(22, Math.min(width - 22, shipX.current));
+
+      context.clearRect(0, 0, width, height);
+      const sky = context.createLinearGradient(0, 0, 0, height);
+      sky.addColorStop(0, '#17133f');
+      sky.addColorStop(1, '#30205b');
+      context.fillStyle = sky;
+      context.fillRect(0, 0, width, height);
+      context.fillStyle = 'rgba(255,255,255,.55)';
+      for (let i = 0; i < 34; i += 1) {
+        const x = (i * 97 + 31) % width;
+        const y = (i * 53 + Math.floor(now / 70)) % height;
+        context.fillRect(x, y, 2, 2);
+      }
+
+      items.current = items.current.filter((item) => {
+        item.y += item.speed * delta;
+        if (Math.abs(item.x - shipX.current) < 25 && item.y > height - 78 && item.y < height - 26) {
+          if (item.type === 'star') {
+            scoreRef.current += 1;
+            setScore(scoreRef.current);
+          } else {
+            livesRef.current -= 1;
+            setLives(livesRef.current);
+            if (livesRef.current <= 0) setStatus('over');
+          }
+          return false;
+        }
+        context.fillStyle = item.type === 'star' ? '#ffdf72' : '#aeb7d8';
+        if (item.type === 'star') drawStar(item.x, item.y, 12);
+        else {
+          context.beginPath();
+          context.arc(item.x, item.y, 12, 0, Math.PI * 2);
+          context.fill();
+          context.fillStyle = '#717c9e';
+          context.beginPath();
+          context.arc(item.x - 4, item.y - 3, 3, 0, Math.PI * 2);
+          context.fill();
+        }
+        return item.y < height + 20;
+      });
+
+      context.fillStyle = '#8de8ff';
+      context.beginPath();
+      context.moveTo(shipX.current, height - 70);
+      context.lineTo(shipX.current - 20, height - 34);
+      context.lineTo(shipX.current + 20, height - 34);
+      context.closePath();
+      context.fill();
+      context.fillStyle = '#ff9d69';
+      context.beginPath();
+      context.moveTo(shipX.current - 8, height - 32);
+      context.lineTo(shipX.current, height - 19 - Math.random() * 6);
+      context.lineTo(shipX.current + 8, height - 32);
+      context.fill();
+      if (status === 'playing') frame = window.requestAnimationFrame(tick);
+    }
+
+    frame = window.requestAnimationFrame(tick);
+    return () => window.cancelAnimationFrame(frame);
+  }, [status]);
+
+  useEffect(() => {
+    function handleKeyDown(event) {
+      const key = event.key.toLowerCase();
+      if (['arrowleft', 'arrowright', 'a', 'd'].includes(key)) {
+        event.preventDefault();
+        keys.current.add(key === 'arrowleft' ? 'ArrowLeft' : key === 'arrowright' ? 'ArrowRight' : key);
+      }
+    }
+    function handleKeyUp(event) {
+      const key = event.key.toLowerCase();
+      keys.current.delete(key === 'arrowleft' ? 'ArrowLeft' : key === 'arrowright' ? 'ArrowRight' : key);
+    }
+    window.addEventListener('keydown', handleKeyDown);
+    window.addEventListener('keyup', handleKeyUp);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('keyup', handleKeyUp);
+    };
+  }, []);
+
+  function hold(direction, pressed) {
+    const key = direction === 'left' ? 'ArrowLeft' : 'ArrowRight';
+    if (pressed) keys.current.add(key);
+    else keys.current.delete(key);
+  }
+
+  return (
+    <div className="challenge-panel arcade-panel">
+      <div className="challenge-progress"><span>⭐ {score} STARS</span><span>❤️ {lives} · ⏱ {seconds}s</span></div>
+      <canvas ref={canvasRef} className="arcade-canvas" width="640" height="360" aria-label="Star Catcher space game. Move the rocket to catch stars and avoid rocks." />
+      {status !== 'playing' && <div className="arcade-overlay" role="status"><strong>{status === 'ready' ? 'Ready for takeoff?' : `Time’s up! You caught ${score} stars!`}</strong><button className="confirm-button" type="button" onClick={start}>{status === 'ready' ? 'Start game 🚀' : 'Play again ↻'}</button></div>}
+      <div className="arcade-controls" aria-label="Rocket movement controls">
+        <button type="button" aria-label="Move left" onPointerDown={() => hold('left', true)} onPointerUp={() => hold('left', false)} onPointerLeave={() => hold('left', false)}>←</button>
+        <span>Move your rocket</span>
+        <button type="button" aria-label="Move right" onPointerDown={() => hold('right', true)} onPointerUp={() => hold('right', false)} onPointerLeave={() => hold('right', false)}>→</button>
+      </div>
+      <p className="arcade-help">Catch ⭐ stars · Dodge 🪨 rocks · Use arrow keys or touch buttons</p>
+    </div>
+  );
+}
+
 export default function GamePlayer({ game, onClose }) {
   const challenge = challenges[game.id];
 
@@ -197,6 +373,9 @@ export default function GamePlayer({ game, onClose }) {
     reflex: <ReflexGame />,
     story: <StoryGame challenge={challenge} />,
     resource: <ResourceGame />,
+    arcade: <StarCatcherGame />,
+    racing: <Suspense fallback={<div className="challenge-panel">Loading Turbo Track…</div>}><TurboTrack /></Suspense>,
+    'three-dimensional': <Suspense fallback={<div className="challenge-panel">Loading 3D game…</div>}><GemRunner3D /></Suspense>,
   }[challenge.mode];
 
   return (
