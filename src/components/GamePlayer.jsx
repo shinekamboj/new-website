@@ -1,5 +1,6 @@
 import React, { lazy, Suspense, useEffect, useRef, useState } from 'react';
 import { challenges } from '../data/challenges.js';
+import MathVisualizer from './games/MathVisualizer.jsx';
 
 const TurboTrack = lazy(() => import('./games/TurboTrack.jsx'));
 const GemRunner3D = lazy(() => import('./games/GemRunner3D.jsx'));
@@ -40,6 +41,16 @@ function Quiz({ challenge }) {
       <div className="challenge-progress"><span>QUESTION {questionIndex + 1} / {challenge.questions.length}</span><span>⭐ {score} points</span></div>
       <div className="progress-track"><span style={{ width: `${((questionIndex + 1) / challenge.questions.length) * 100}%` }} /></div>
       <h3 className="challenge-prompt">{question.prompt}</h3>
+      {question.image && (
+        <figure className={`question-visual-scene question-scene-${question.imageTheme || 'dino'}`}>
+          <span className="question-scene-orbit orbit-a" aria-hidden="true" />
+          <span className="question-scene-orbit orbit-b" aria-hidden="true" />
+          <span className="question-scene-spark spark-a" aria-hidden="true">✦</span>
+          <img className="question-visual-image" src={question.image} alt={question.imageAlt} />
+          <figcaption>{question.imageCaption}</figcaption>
+        </figure>
+      )}
+      {question.visual && <MathVisualizer key={question.prompt} visual={question.visual} />}
       <div className="answer-grid">
         {question.choices.map((answerText, index) => {
           const isCorrect = choice !== null && index === question.answer;
@@ -92,6 +103,14 @@ function WordGame({ challenge }) {
   return (
     <form className="challenge-panel word-panel" onSubmit={checkWord}>
       <div className="challenge-progress"><span>WORD {round + 1} / {challenge.rounds.length}</span><span>⭐ {score} points</span></div>
+      <div className={`word-visual-scene word-scene-${current.answer}`}>
+        <span className="word-scene-orbit orbit-a" aria-hidden="true" />
+        <span className="word-scene-orbit orbit-b" aria-hidden="true" />
+        <span className="word-scene-spark spark-a" aria-hidden="true">✦</span>
+        <span className="word-scene-spark spark-b" aria-hidden="true">✧</span>
+        <img className="word-visual-image" src={current.image} alt={current.imageAlt} />
+        <span className="word-scene-caption">LOOK · THINK · UNSCRAMBLE</span>
+      </div>
       <div className="scramble-word" aria-label={`Mixed-up letters: ${current.mixed}`}>{current.mixed}</div>
       <p className="word-hint">Hint: {current.hint}</p>
       <label className="sr-only" htmlFor="word-answer">Your word</label>

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 180" fill="none">
+  <defs>
+    <linearGradient id="loop" x1="55" y1="49" x2="188" y2="127" gradientUnits="userSpaceOnUse"><stop stop-color="#9EEBFF"/><stop offset=".5" stop-color="#887AF0"/><stop offset="1" stop-color="#FA8BC4"/></linearGradient>
+    <linearGradient id="robot" x1="97" y1="76" x2="143" y2="126" gradientUnits="userSpaceOnUse"><stop stop-color="#E1FAFF"/><stop offset="1" stop-color="#6FB7E9"/></linearGradient>
+    <filter id="shadow" x="24" y="133" width="194" height="36" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse"><feGaussianBlur stdDeviation="6"/></filter>
+  </defs>
+  <ellipse cx="120" cy="151" fill="#1C2A55" fill-opacity=".3" filter="url(#shadow)" rx="80" ry="10"/>
+  <path d="M78 69c13-21 42-31 66-21 21 9 32 30 29 52m-13 21c-14 19-40 27-63 17-20-9-31-29-28-50" stroke="url(#loop)" stroke-width="13" stroke-linecap="round"/>
+  <path d="m168 47 9 20-21-3m-82 69-9-20 21 3" fill="#FFF0A4" stroke="#FFF0A4" stroke-width="4" stroke-linejoin="round"/>
+  <rect x="94" y="77" width="52" height="45" rx="12" fill="url(#robot)" stroke="#E7FCFF" stroke-width="3"/>
+  <rect x="101" y="86" width="38" height="21" rx="8" fill="#26345E"/><circle cx="112" cy="96" r="3.5" fill="#8DFFE1"/><circle cx="128" cy="96" r="3.5" fill="#FFE98F"/>
+  <path d="M120 77V66m0 0-7-5m7 5 7-5m-16 56-4 12m24-12 4 12" stroke="#B7E9FF" stroke-width="4" stroke-linecap="round"/>
+  <path d="m52 58 3 7 7 3-7 3-3 7-3-7-7-3 7-3 3-7Zm139 50 2.5 5.5L199 116l-5.5 2.5L191 124l-2.5-5.5L183 116l5.5-2.5L191 108Z" fill="white"/>
+</svg>

@@ -122,15 +122,24 @@ test('TC-07: Math Meteor gives answer feedback and records a score', async ({ pa
   await page.getByRole('button', { name: /Play now/ }).first().click();
   const dialog = page.getByRole('dialog', { name: 'Math Meteor' });
   await expect(dialog).toBeVisible();
+  const visual = dialog.locator('.math-visual');
+  await expect(visual).toBeVisible();
+  await expect(visual.locator('.math-cube')).toHaveCount(12);
+  await expect(visual.locator('.math-equation')).toContainText('7 + 5');
   await dialog.getByRole('button', { name: '10', exact: true }).click();
   await expect(dialog.getByText(/Not quite/)).toBeVisible();
   await captureEvidence(page, testInfo, 'tc-07-math-wrong-answer.png', false);
   await dialog.getByRole('button', { name: 'Next question' }).click();
-  for (const [answer, next] of [['9', 'Next question'], ['12', 'See score']]) {
-    await dialog.getByRole('button', { name: answer, exact: true }).click();
-    await expect(dialog.getByText(/That’s right/)).toBeVisible();
-    await dialog.getByRole('button', { name: next }).click();
-  }
+  await expect(visual.locator('.math-equation')).toContainText('18 − 9');
+  await expect(visual.locator('.math-cube')).toHaveCount(18);
+  await dialog.getByRole('button', { name: '9', exact: true }).click();
+  await expect(dialog.getByText(/That’s right/)).toBeVisible();
+  await dialog.getByRole('button', { name: 'Next question' }).click();
+  await expect(visual.locator('.math-equation')).toContainText('4 × 3');
+  await expect(visual.locator('.math-cube')).toHaveCount(12);
+  await dialog.getByRole('button', { name: '12', exact: true }).click();
+  await expect(dialog.getByText(/That’s right/)).toBeVisible();
+  await dialog.getByRole('button', { name: 'See score' }).click();
   await expect(dialog.getByRole('heading', { name: 'Nice playing!' })).toBeVisible();
   await expect(dialog.getByText('2 out of 3')).toBeVisible();
   await captureEvidence(page, testInfo, '03-math-game-result.png', false);
@@ -145,17 +154,25 @@ test('TC-08: Word Wild handles a wrong answer and completes its rounds', async (
   const card = page.locator('.game-card').filter({ hasText: 'Word Wild' });
   await card.getByRole('button', { name: /Play now/ }).click();
   const dialog = page.getByRole('dialog', { name: 'Word Wild' });
+  const wordImage = dialog.locator('.word-visual-image');
+  await expect(wordImage).toBeVisible();
+  await expect(wordImage).toHaveAttribute('src', /cat-3d\.svg/);
   await dialog.getByLabel('Your word').fill('dog');
   await dialog.getByRole('button', { name: 'Check word' }).click();
   await expect(dialog.getByText(/word was “cat”/)).toBeVisible();
   await captureEvidence(page, testInfo, 'tc-08-word-wrong-answer.png', false);
   await dialog.getByRole('button', { name: 'Next word' }).click();
-  for (const [answer, next] of [['star', 'Next word'], ['plain', 'See score']]) {
-    await dialog.getByLabel('Your word').fill(answer);
-    await dialog.getByRole('button', { name: 'Check word' }).click();
-    await expect(dialog.getByText(/You got it/)).toBeVisible();
-    await dialog.getByRole('button', { name: next }).click();
-  }
+  await expect(wordImage).toHaveAttribute('src', /star-3d\.svg/);
+  await expect(wordImage).toHaveAttribute('alt', /3D star/);
+  await dialog.getByLabel('Your word').fill('star');
+  await dialog.getByRole('button', { name: 'Check word' }).click();
+  await expect(dialog.getByText(/You got it/)).toBeVisible();
+  await dialog.getByRole('button', { name: 'Next word' }).click();
+  await expect(wordImage).toHaveAttribute('src', /plain-3d\.svg/);
+  await dialog.getByLabel('Your word').fill('plain');
+  await dialog.getByRole('button', { name: 'Check word' }).click();
+  await expect(dialog.getByText(/You got it/)).toBeVisible();
+  await dialog.getByRole('button', { name: 'See score' }).click();
   await expect(dialog.getByRole('heading', { name: 'Nice playing!' })).toBeVisible();
   await expect(dialog.getByText('2 out of 3')).toBeVisible();
   await captureEvidence(page, testInfo, '08-word-game-result.png', false);
@@ -244,4 +261,83 @@ test('TC-13: keyboard focus is visible and Escape closes a game dialog', async (
   await captureEvidence(page, testInfo, 'tc-13-keyboard-game-dialog.png', false);
   await page.keyboard.press('Escape');
   await expect(page.getByRole('dialog')).toHaveCount(0);
+});
+
+test('TC-18: clicking or keyboard-activating a game card opens its popup', async ({ page }, testInfo) => {
+  await page.goto('/');
+  const card = page.locator('.game-card').filter({ hasText: 'Gem Runner 3D' });
+  await card.locator('.game-art').click();
+  const dialog = page.getByRole('dialog', { name: 'Gem Runner 3D' });
+  await expect(dialog).toBeVisible();
+  await captureEvidence(page, testInfo, 'tc-18-game-card-popup.png', false);
+  await dialog.getByRole('button', { name: 'Close game' }).click();
+  await card.focus();
+  await page.keyboard.press('Enter');
+  await expect(dialog).toBeVisible();
+  await dialog.getByRole('button', { name: 'Close game' }).click();
+});
+
+test('TC-19: header login opens a safe preview form and footer has About Us', async ({ page }, testInfo) => {
+  await page.goto('/');
+  await page.getByRole('button', { name: 'Log in' }).click();
+  const login = page.getByRole('dialog', { name: 'Welcome back' });
+  await expect(login.getByLabel('Email address')).toBeVisible();
+  await expect(login.getByLabel('Password')).toBeVisible();
+  await login.getByLabel('Email address').fill('player@example.com');
+  await login.getByLabel('Password').fill('preview-password');
+  await login.getByRole('button', { name: 'Log in' }).click();
+  await expect(login.getByRole('status')).toContainText(/not connected yet/i);
+  await captureEvidence(page, testInfo, 'tc-19-login-popup.png', false);
+  await login.getByRole('button', { name: 'Close login' }).click();
+  await page.locator('footer').getByRole('link', { name: 'About us' }).click();
+  await expect(page).toHaveURL(/#about-us/);
+  await expect(page.locator('#about-us')).toContainText('Pixel Pals Arcade');
+  await captureEvidence(page, testInfo, 'tc-19-about-us-footer.png', false);
+});
+
+test('TC-20: Dino Lab and Planet Pals show a matching 3D-style image for every question', async ({ page }, testInfo) => {
+  await page.goto('/');
+  const visualRounds = [
+    { title: 'Dino Lab', images: ['fossil-3d.svg', 'herbivore-3d.svg', 'footprint-3d.svg'], answers: ['A fossil', 'Herbivore', 'How an animal moved'], screenshot: 'tc-20-dino-visual.png' },
+    { title: 'Planet Pals', images: ['earth-3d.svg', 'sun-3d.svg', 'saturn-3d.svg'], answers: ['Earth', 'The Sun', 'Saturn'], screenshot: 'tc-20-planet-visual.png' },
+  ];
+
+  for (const game of visualRounds) {
+    const card = page.locator('.game-card').filter({ hasText: game.title });
+    await card.getByRole('button', { name: /Play now/ }).click();
+    const dialog = page.getByRole('dialog', { name: game.title });
+    const image = dialog.locator('.question-visual-image');
+    for (let index = 0; index < game.images.length; index += 1) {
+      await expect(image).toHaveAttribute('src', new RegExp(game.images[index]));
+      await expect(image).toBeVisible();
+      if (index === 0) await captureEvidence(page, testInfo, game.screenshot, false);
+      await dialog.getByRole('button', { name: game.answers[index], exact: true }).click();
+      const advance = index === game.images.length - 1 ? 'See score' : 'Next question';
+      await dialog.getByRole('button', { name: advance }).click();
+    }
+    await dialog.getByRole('button', { name: 'Close game' }).click();
+  }
+});
+
+test('TC-21: Code Camp has easier questions with a 3D-style picture for each step', async ({ page }, testInfo) => {
+  await page.goto('/');
+  const card = page.locator('.game-card').filter({ hasText: 'Code Camp' });
+  await card.getByRole('button', { name: /Play now/ }).click();
+  const dialog = page.getByRole('dialog', { name: 'Code Camp' });
+  const image = dialog.locator('.question-visual-image');
+  const rounds = [
+    { image: 'number-blocks-3d.svg', answer: '4', screenshot: 'tc-21-code-camp-pattern.png' },
+    { image: 'robot-steps-3d.svg', answer: '2', screenshot: 'tc-21-code-camp-robot.png' },
+    { image: 'repeat-loop-3d.svg', answer: 'Repeat', screenshot: 'tc-21-code-camp-loop.png' },
+  ];
+  for (let index = 0; index < rounds.length; index += 1) {
+    await expect(image).toHaveAttribute('src', new RegExp(rounds[index].image));
+    await expect(image).toBeVisible();
+    await captureEvidence(page, testInfo, rounds[index].screenshot, false);
+    await dialog.getByRole('button', { name: rounds[index].answer, exact: true }).click();
+    await expect(dialog.getByText(/That’s right/)).toBeVisible();
+    await dialog.getByRole('button', { name: index === rounds.length - 1 ? 'See score' : 'Next question' }).click();
+  }
+  await expect(dialog.getByRole('heading', { name: 'Amazing work!' })).toBeVisible();
+  await dialog.getByRole('button', { name: 'Close game' }).click();
 });

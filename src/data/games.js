@@ -50,8 +50,8 @@ export const games = [
     category: 'Logic',
     emoji: '🤖',
     color: 'pink',
-    age: 'Ages 8–12',
-    description: 'Give a friendly robot simple commands and solve beginner logic challenges one step at a time.',
+    age: 'Ages 6–9',
+    description: 'Help a friendly robot with easy number patterns, tiny steps, and repeat commands.',
     tags: ['coding', 'logic', 'robot', 'problem solving'],
   },
   {

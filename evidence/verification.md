@@ -1,11 +1,11 @@
 # Latest verification evidence
 
-- Date: 2026-10-20
-- Playwright command: `npx playwright test` (direct CLI run)
-- Playwright direct CLI run: `npx playwright test` at `2026-10-20T06:24:10.819Z` — **13 passed, 0 failed, 0 skipped, 0 flaky** (42.5s)
+- Date: 2026-10-26
+- Playwright command: `npm.cmd exec playwright test` (direct CLI run)
+- Playwright direct CLI run: latest run on 2026-10-26 — **20 passed, 0 failed, 0 skipped, 0 flaky**.
 - Build: `npm run build` — passed
 - Browser: Chromium 156.0.8078.4
-- Evidence screenshots: 30 Playwright test screenshots plus one earlier manual browser preview in `evidence/screenshots/`
+- Evidence screenshots: latest Playwright screenshots, including game-card popup, plus earlier manual browser preview in `evidence/screenshots/`
 - Test-by-test screenshot map: [evidence-index.md](evidence-index.md)
 
 ## Full artifacts

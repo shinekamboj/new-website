@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function Header({ audience, onAudienceChange, search, onSearch }) {
+export default function Header({ audience, onAudienceChange, search, onSearch, onLogin }) {
   return (
     <header className="site-header">
       <a className="brand" href="#top" aria-label="Pixel Pals Arcade home">
@@ -35,6 +35,9 @@ export default function Header({ audience, onAudienceChange, search, onSearch })
           <span aria-hidden="true">✨</span> For grown-ups
         </button>
       </nav>
+      <button className="login-button" type="button" onClick={onLogin}>
+        <span aria-hidden="true">👤</span> Log in
+      </button>
     </header>
   );
 }

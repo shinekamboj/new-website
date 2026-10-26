@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 180" fill="none">
+  <defs>
+    <radialGradient id="sun" cx="0" cy="0" r="1" gradientTransform="matrix(59 62 -62 59 97 52)" gradientUnits="userSpaceOnUse"><stop stop-color="#FFF9BB"/><stop offset=".45" stop-color="#FFD65B"/><stop offset="1" stop-color="#F28B3D"/></radialGradient>
+    <linearGradient id="rays" x1="58" y1="38" x2="182" y2="131" gradientUnits="userSpaceOnUse"><stop stop-color="#FFF4A4"/><stop offset="1" stop-color="#FF8A68"/></linearGradient>
+    <filter id="glow" x="40" y="10" width="160" height="160" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse"><feGaussianBlur stdDeviation="12"/></filter>
+    <filter id="shadow" x="38" y="138" width="164" height="29" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse"><feGaussianBlur stdDeviation="6"/></filter>
+  </defs>
+  <ellipse cx="120" cy="151" fill="#283252" fill-opacity=".25" filter="url(#shadow)" rx="66" ry="9"/>
+  <circle cx="120" cy="83" r="66" fill="#FFC85B" fill-opacity=".54" filter="url(#glow)"/>
+  <g stroke="url(#rays)" stroke-linecap="round" stroke-width="8">
+    <path d="M120 20V9m0 148v-12M57 83H44m152 0h-13M75 38l-9-9m108 108-9-9m0-90 9-9M75 128l-9 9"/>
+  </g>
+  <circle cx="120" cy="83" r="48" fill="url(#sun)" stroke="#FFF1A2" stroke-width="3"/>
+  <path d="M84 66c13-18 37-27 57-18" stroke="#FFFCE2" stroke-opacity=".82" stroke-width="7" stroke-linecap="round"/>
+  <circle cx="104" cy="83" r="3" fill="#9A4F4A"/><circle cx="136" cy="83" r="3" fill="#9A4F4A"/>
+  <path d="M106 98c8 9 20 9 28 0" stroke="#A7504C" stroke-width="3" stroke-linecap="round"/>
+  <circle cx="53" cy="119" r="4" fill="#A8EDFF"/><path d="m184 43 3 7 7 3-7 3-3 7-3-7-7-3 7-3 3-7Z" fill="white"/>
+</svg>

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 180" fill="none">
+  <defs>
+    <linearGradient id="tile" x1="46" y1="46" x2="187" y2="139" gradientUnits="userSpaceOnUse"><stop stop-color="#FFE6A5"/><stop offset=".52" stop-color="#D4A96F"/><stop offset="1" stop-color="#956C72"/></linearGradient>
+    <linearGradient id="mark" x1="74" y1="69" x2="146" y2="116" gradientUnits="userSpaceOnUse"><stop stop-color="#9A654D"/><stop offset="1" stop-color="#704864"/></linearGradient>
+    <filter id="shadow" x="25" y="129" width="190" height="38" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse"><feGaussianBlur stdDeviation="7"/></filter>
+  </defs>
+  <ellipse cx="120" cy="148" fill="#253453" fill-opacity=".3" filter="url(#shadow)" rx="80" ry="11"/>
+  <path d="m40 72 81-41 80 42-81 43-80-44Z" fill="#F7D89A" stroke="#FFF0C9" stroke-width="3" stroke-linejoin="round"/>
+  <path d="m40 72 80 44v35l-80-44V72Zm161 1-81 43v35l81-44V73Z" fill="#9E6B69" stroke="#76536D" stroke-width="3" stroke-linejoin="round"/>
+  <path d="m57 72 64-32 63 33-64 34-63-35Z" fill="url(#tile)"/>
+  <g fill="url(#mark)">
+    <path d="M82 63c-9 2-13 11-12 20l2 13c1 7 6 11 12 9 6-2 7-9 6-15l-1-16c0-7-2-12-7-11Zm-10-7c4-5 9-6 12-1l3 6-18 5-2-5 5-5Z"/>
+    <path d="M128 72c-8 2-12 10-11 18l2 12c1 7 6 11 11 9 6-1 7-8 6-14l-1-15c0-7-2-11-7-10Zm-9-7c4-5 8-5 11-1l3 6-17 5-2-5 5-5Z"/>
+    <path d="M160 60c-7 2-10 8-9 15l2 10c1 6 5 9 10 8 5-1 6-7 5-12l-1-13c0-6-2-9-7-8Z"/>
+  </g>
+  <path d="m54 99 13 7m78 27 11 6m8-90 4 2" stroke="#FFEAB7" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="188" cy="43" r="4" fill="#9EEBFF"/>
+</svg>

@@ -15,7 +15,12 @@ export default function Footer({ onAudienceChange }) {
           <h2>Explore</h2>
           <a href="#games" onClick={() => onAudienceChange('kids')}>Learning games</a>
           <a href="#games" onClick={() => onAudienceChange('adult')}>Grown-up picks</a>
+          <a href="#about-us">About us</a>
           <a href="#top">Back to top ↑</a>
+        </div>
+        <div className="footer-about" id="about-us">
+          <h2>About us</h2>
+          <p>Pixel Pals Arcade is a playful home for curious kids and grown-ups to discover, learn, and enjoy browser games together.</p>
         </div>
         <div className="footer-note" id="safety">
           <span className="footer-note-icon" aria-hidden="true">🛡️</span>

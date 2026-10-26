@@ -4,6 +4,7 @@ import Footer from './components/Footer.jsx';
 import GameCard from './components/GameCard.jsx';
 import GamePlayer from './components/GamePlayer.jsx';
 import Header from './components/Header.jsx';
+import LoginModal from './components/LoginModal.jsx';
 import { games } from './data/games.js';
 
 export default function App() {
@@ -11,6 +12,7 @@ export default function App() {
   const [category, setCategory] = useState('All games');
   const [search, setSearch] = useState('');
   const [selectedGame, setSelectedGame] = useState(null);
+  const [loginOpen, setLoginOpen] = useState(false);
 
   const audienceGames = useMemo(() => games.filter((game) => game.audience === audience), [audience]);
   const categories = useMemo(() => ['All games', ...new Set(audienceGames.map((game) => game.category))], [audienceGames]);
@@ -31,7 +33,7 @@ export default function App() {
 
   return (
     <div className={`app-shell audience-${audience}`} id="top">
-      <Header audience={audience} onAudienceChange={changeAudience} search={search} onSearch={setSearch} />
+      <Header audience={audience} onAudienceChange={changeAudience} search={search} onSearch={setSearch} onLogin={() => setLoginOpen(true)} />
 
       <main>
         <section className="hero" aria-labelledby="hero-title">
@@ -96,6 +98,7 @@ export default function App() {
 
       <Footer onAudienceChange={changeAudience} />
       {selectedGame && <GamePlayer key={selectedGame.id} game={selectedGame} onClose={() => setSelectedGame(null)} />}
+      {loginOpen && <LoginModal onClose={() => setLoginOpen(false)} />}
     </div>
   );
 }

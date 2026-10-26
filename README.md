@@ -1,15 +1,17 @@
 # Pixel Pals Arcade
 
-A responsive React game hub with separate educational picks for kids and general-audience games for grown-ups. All ten sample games run locally in the browser.
+A responsive React game hub with separate kids' and grown-ups' collections, a header login preview, and an About Us footer section. It includes 13 browser games, with Phaser 4 racing and a Three.js 3D runner.
 
 Live demo: https://new-website-50b26.web.app
 
 ## Run locally
 
-```sh
-npm install
-npm run dev
+```powershell
+npm.cmd install
+npm.cmd run dev -- --port 4173
 ```
+
+Open `http://localhost:4173` for the Gaming Website preview.
 
 ## Automated verification
 
@@ -23,6 +25,6 @@ The optional `npm run verify` command orchestrates a domain check, production bu
 
 ## Firebase Hosting
 
-The current deployment is at https://new-website-50b26.web.app. Deploy locally with `npm run build` followed by `npm run deploy`. GitHub automatic deployment is paused until the repository has the Actions secret `FIREBASE_SERVICE_ACCOUNT_NEW_WEBSITE_50B26` and variable `FIREBASE_HOSTING_AUTODEPLOY=enabled`. Firebase CLI's `firebase init hosting:github` can provision the secret; never commit service-account JSON. The main verification workflow (build, tests, evidence upload) runs on pushes and pull requests independently.
+The current deployment is at https://new-website-50b26.web.app. The latest Playwright run has **20 passing tests**. Deploy locally with `npm.cmd run build` followed by `npm.cmd run deploy`. GitHub automatic deployment is paused until the repository has the Actions secret `FIREBASE_SERVICE_ACCOUNT_NEW_WEBSITE_50B26` and variable `FIREBASE_HOSTING_AUTODEPLOY=enabled`. Firebase CLI's `firebase init hosting:github` can provision the secret; never commit service-account JSON. The main verification workflow (build, tests, evidence upload) runs on pushes and pull requests independently.
 
 See [requirements.md](./requirements.md) for requirements, test cases, and domain lookup notes.

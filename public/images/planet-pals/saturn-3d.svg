@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 180" fill="none">
+  <defs>
+    <radialGradient id="planet" cx="0" cy="0" r="1" gradientTransform="matrix(50 52 -54 52 93 49)" gradientUnits="userSpaceOnUse"><stop stop-color="#FFE7A1"/><stop offset=".48" stop-color="#E8A85F"/><stop offset="1" stop-color="#A66B9C"/></radialGradient>
+    <linearGradient id="ring" x1="38" y1="76" x2="201" y2="121" gradientUnits="userSpaceOnUse"><stop stop-color="#FFF1BA"/><stop offset=".45" stop-color="#CE8C69"/><stop offset="1" stop-color="#9B69B4"/></linearGradient>
+    <filter id="shadow" x="30" y="135" width="180" height="31" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse"><feGaussianBlur stdDeviation="6"/></filter>
+  </defs>
+  <ellipse cx="120" cy="150" fill="#223452" fill-opacity=".28" filter="url(#shadow)" rx="78" ry="10"/>
+  <ellipse cx="120" cy="91" rx="87" ry="27" transform="rotate(-16 120 91)" stroke="url(#ring)" stroke-width="15"/>
+  <ellipse cx="120" cy="91" rx="87" ry="27" transform="rotate(-16 120 91)" stroke="#FFF2BF" stroke-opacity=".7" stroke-width="3"/>
+  <circle cx="120" cy="82" r="48" fill="url(#planet)" stroke="#FFEBC1" stroke-width="2"/>
+  <path d="M76 64c22 10 61 11 88 1m-94 25c28 12 64 12 99 0m-86 25c24 8 50 8 75 0" stroke="#FFF1CF" stroke-opacity=".7" stroke-width="7" stroke-linecap="round"/>
+  <path d="M91 41c12-7 26-10 40-7" stroke="white" stroke-opacity=".7" stroke-width="5" stroke-linecap="round"/>
+  <path d="m59 43 3 7 7 3-7 3-3 7-3-7-7-3 7-3 3-7Zm137 27 2.5 5.5L204 78l-5.5 2.5L196 86l-2.5-5.5L188 78l5.5-2.5L196 70Z" fill="#FFF3B4"/>
+</svg>

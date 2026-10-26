@@ -1,8 +1,21 @@
 import React from 'react';
 
 export default function GameCard({ game, onOpen }) {
+  function openWithKeyboard(event) {
+    if (event.target !== event.currentTarget || !['Enter', ' '].includes(event.key)) return;
+    event.preventDefault();
+    onOpen(game);
+  }
+
   return (
-    <article className="game-card">
+    <article
+      className="game-card"
+      role="group"
+      tabIndex={0}
+      aria-label={`Open ${game.title}`}
+      onClick={(event) => { if (!event.target.closest('button')) onOpen(game); }}
+      onKeyDown={openWithKeyboard}
+    >
       <div className={`game-art art-${game.color}`} aria-hidden="true">
         <span className="art-spark spark-one">✦</span>
         <span className="art-spark spark-two">✧</span>
@@ -16,7 +29,7 @@ export default function GameCard({ game, onOpen }) {
         </div>
         <h3>{game.title}</h3>
         <p>{game.description}</p>
-        <button className="play-button" type="button" onClick={() => onOpen(game)}>
+        <button className="play-button" type="button" onClick={(event) => { event.stopPropagation(); onOpen(game); }}>
           Play now <span aria-hidden="true">▶</span>
         </button>
       </div>

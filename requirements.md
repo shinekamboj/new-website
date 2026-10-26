@@ -13,14 +13,15 @@
 - Check domain availability and use the available domain's name for branding.
 - Maintain test evidence alongside the implementation.
 - Deploy the React site to Firebase Hosting using the new Firebase project.
+- Include a header login-preview popup and About Us footer content. Do not imply real authentication until an auth backend exists.
 
 ## Decisions and assumptions
 
 - Current brand: **Pixel Pals Arcade**. `pixelplayground.com` and `pixel-playground.com` are registered. A Verisign RDAP lookup on 2026-10-20 returned no registration record for `pixelpalsarcade.com`, so that candidate appeared unregistered at lookup time. Availability can change and must be confirmed with a registrar before purchase; no domain was purchased or registered.
 - Adult collection is labeled “For grown-ups” but contains only friendly, general-audience games, with no age gate or explicit material.
-- Ten original, lightweight browser mini-games are included: five educational activities for kids and five general-audience games for grown-ups. These are self-contained mini-game demos, not externally hosted commercial games.
+- Thirteen original browser games are included: eight activities for kids and five general-audience games for grown-ups. Math Meteor explains arithmetic with animated 3D-style counting boxes; Word Wild shows a dimensional illustration for every word; Turbo Track uses Phaser 4 and Gem Runner 3D uses Three.js. Games are self-contained, not externally hosted commercial games.
 - Search matches game titles, categories, descriptions, and tags within the selected collection. Category chips also filter the current collection.
-- Visual identity uses a playful arcade palette and responsive layouts. Footer includes collection links and a general-audience play reminder.
+- Visual identity uses a gaming-themed background and responsive layouts. Footer includes About Us, collection links, and a general-audience play reminder.
 - No account, analytics, or personal information is required for play.
 
 ## Acceptance criteria
@@ -34,6 +35,11 @@
 7. The interface is legible and usable at 320px mobile width, tablet width, and desktop width without horizontal overflow.
 8. Automated Playwright runs save test reports and relevant screenshots as evidence.
 9. The production build is deployed to Firebase Hosting; GitHub Actions verification runs on pushes. Hosting auto-deploy becomes active after its service-account secret and enable variable are configured.
+10. Clicking a game card or Play button opens the playable popup; category, collection, and game controls retain their normal behavior.
+11. Header Login opens a safe preview form without claiming successful sign-in or sending/storing credentials.
+12. Footer includes an About Us link and section.
+13. Dino Lab and Planet Pals show a question-matched 3D-style illustration for each quiz question.
+14. Code Camp uses simpler child-friendly questions and a relevant 3D-style image for each question.
 
 ## Domain check
 
@@ -106,14 +112,18 @@ gaming website/
 | TC-04 | Search | A collection is open | Search for a game title, category, or tag | Only matching games from the active collection are shown and the result count updates | High |
 | TC-05 | Category filter | A collection with multiple categories is open | Select a category, then “All games” | The selected category is filtered; selecting “All games” restores the full active collection | High |
 | TC-06 | Empty search | A collection is open | Search for a term with no matches; select reset | Helpful empty state appears and reset restores the collection | Medium |
-| TC-07 | Quiz game is playable | Kids collection is open | Start Math Meteor, answer each question, and finish | Answers receive feedback; score/result appears; user can replay and close the game | High |
-| TC-08 | Word game is playable | Kids collection is open | Start Word Wild, enter answers, and advance rounds | Input is checked, feedback is shown, and a final score appears | High |
+| TC-07 | Math Meteor visual quiz | Kids collection is open | Watch the animated block-counting visual, answer each operation, and finish | 3D-style boxes illustrate add/subtract/multiply; feedback and final score appear | High |
+| TC-08 | Word Wild visuals and gameplay | Kids collection is open | View each round illustration, enter answers, and advance | Matching 3D-style art appears for each word; feedback and final score work | High |
 | TC-09 | Grown-up game is playable | Grown-up collection is open | Start Neon Drift and react to the green signal | A reaction-time result is shown; premature tap is handled; user can retry | High |
 | TC-10 | Footer links and guidance | Scroll to footer | Inspect links and choose a collection link | Footer guidance is visible and collection links switch to the requested collection | Medium |
 | TC-11 | Mobile layout | Set viewport to 320–560px wide | Inspect header, search, cards, filters, game dialog, and footer | No horizontal overflow; content and controls remain usable | High |
 | TC-12 | Tablet/desktop layout | Use tablet and desktop viewports | Inspect hero, game grid, and footer | Layout adapts and game cards remain readable | Medium |
 | TC-13 | Keyboard and dialog controls | Open the site with keyboard navigation | Tab through controls; open a game and press Escape | Focus is visible, controls are reachable, dialog is named and Escape closes it | High |
-| TC-14 | Every game is playable | Open each collection | Launch each of the ten cards | Every card opens its own working mini-game activity | High |
+| TC-14 | Every game is playable | Open each collection | Launch each of the thirteen cards | Every card opens its own working game activity | High |
+| TC-18 | Game card popup | Open the kids' collection | Click a card, or focus it and press Enter | The selected game opens in its playable popup | High |
+| TC-19 | Login and About Us | Open the home page | Open Login, submit preview form, then use footer About Us link | Safe not-configured notice appears; About Us section is reachable | Medium |
+| TC-20 | Science-game visuals | Open Dino Lab and Planet Pals | Advance through each question | Matching dino/fossil and solar-system image appears with each question | Medium |
+| TC-21 | Code Camp difficulty and visuals | Open Code Camp | View each image, answer the three questions | Beginner-friendly questions and matching 3D-style visuals appear; final score is shown | High |
 
 ## Test evidence
 
@@ -134,7 +144,7 @@ Test evidence is stored under `evidence/`:
 
 Manual browser smoke check (2026-10-20): the home page rendered in the browser and the console was clear after a React runtime-import issue was fixed. Screenshot: `evidence/screenshots/00-browser-preview.png`.
 
-Latest direct Playwright CLI run (2026-10-20): **13 passed, 0 failed** with `npx playwright test`; production build also passed. Thirty screenshots are saved and attached to Playwright tests. See `evidence/evidence-index.md` for the complete test-case-to-screenshot map and `evidence/verification.md` for logs and reports.
+Latest direct Playwright CLI run (2026-10-26): **20 passed, 0 failed** with `npm.cmd exec playwright test`; production build also passed. Screenshots are saved and attached to the tests, including animated math boxes, Word Wild art, science-game illustrations, Code Camp visuals, game-card popups, Login, and About Us. See `evidence/evidence-index.md` for the test-case-to-screenshot map and `evidence/verification.md` for logs and reports.
 
 ## Automated verification status
 
@@ -142,7 +152,7 @@ Run `npm run verify` to refresh this status, `evidence/verification.md`, the tes
 
 <!-- AUTO-VERIFICATION-START -->
 
-Latest validation (2026-10-20): domain RDAP record at `evidence/domain-check.md`; production build **PASS**; direct Playwright CLI **PASS** — 13 passed, 0 failed.
+Latest validation (2026-10-26): domain RDAP record at `evidence/domain-check.md`; production build **PASS**; direct Playwright CLI **PASS** — 20 passed, 0 failed.
 
 Evidence: [verification summary](evidence/verification.md), [test-case evidence index](evidence/evidence-index.md), [CLI log](evidence/test-results/playwright-cli.log), [HTML report](evidence/playwright-report/index.html), and screenshots in [evidence/screenshots](evidence/screenshots/).
 

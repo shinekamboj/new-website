@@ -55,7 +55,7 @@
         "testMatch": "**/*.@(spec|test).?(c|m)[jt]s?(x)",
         "timeout": 30000,
         "use": {
-          "baseURL": "http://127.0.0.1:5173",
+          "baseURL": "http://127.0.0.1:4173",
           "trace": "retain-on-failure",
           "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.8078.4 Safari/537.36",
           "viewport": {
@@ -107,8 +107,8 @@
     "version": "1.64.1",
     "workers": 1,
     "webServer": {
-      "command": "npm run dev -- --host 127.0.0.1",
-      "url": "http://127.0.0.1:5173",
+      "command": "npm run dev -- --host 127.0.0.1 --port 4173 --strictPort",
+      "url": "http://127.0.0.1:4173",
       "reuseExistingServer": true,
       "timeout": 120000
     }
@@ -121,7 +121,7 @@
       "line": 0,
       "specs": [
         {
-          "title": "TC-01/02: kids collection has five educational picks across categories",
+          "title": "TC-01/02: kids collection has eight educational and arcade picks across categories",
           "ok": true,
           "tags": [],
           "tests": [
@@ -136,18 +136,18 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 2956,
+                  "duration": 4218,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-10-20T06:24:12.222Z",
+                  "startTime": "2026-10-26T16:53:05.725Z",
                   "annotations": [],
                   "attachments": [
                     {
                       "name": "01-kids-desktop.png",
                       "contentType": "image/png",
-                      "path": "C:\\Users\\usern\\Desktop\\xyz\\New folder\\gaming website\\evidence\\test-results\\arcade-TC-01-02-kids-colle-48295-nal-picks-across-categories\\attachments\\01-kids-desktop-png-55d222b68ba1a0b6b00b8072e89b0fb80d24ef07.png"
+                      "path": "C:\\Users\\usern\\Desktop\\xyz\\New folder\\gaming website\\evidence\\test-results\\arcade-TC-01-02-kids-colle-829e4-ade-picks-across-categories\\attachments\\01-kids-desktop-png-55d222b68ba1a0b6b00b8072e89b0fb80d24ef07.png"
                     }
                   ]
                 }
@@ -155,7 +155,7 @@
               "status": "expected"
             }
           ],
-          "id": "644b4ebeee2f7d62e16a-3a014cb9dd8d977d890d",
+          "id": "644b4ebeee2f7d62e16a-a5d49c01ff695668a03e",
           "file": "arcade.spec.js",
           "line": 16,
           "column": 1
@@ -176,12 +176,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 2185,
+                  "duration": 2651,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-10-20T06:24:15.984Z",
+                  "startTime": "2026-10-26T16:53:10.623Z",
                   "annotations": [],
                   "attachments": [
                     {
@@ -216,12 +216,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 7542,
+                  "duration": 11941,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-10-20T06:24:18.200Z",
+                  "startTime": "2026-10-26T16:53:13.312Z",
                   "annotations": [],
                   "attachments": [
                     {
@@ -248,6 +248,21 @@
                       "name": "tc-14-kids-code-camp.png",
                       "contentType": "image/png",
                       "path": "C:\\Users\\usern\\Desktop\\xyz\\New folder\\gaming website\\evidence\\test-results\\arcade-TC-14-every-catalog-game-opens-its-playable-activity\\attachments\\tc-14-kids-code-camp-png-605bb94a02b5b47edded2df581f9b52cfff2c2e9.png"
+                    },
+                    {
+                      "name": "tc-14-kids-star-catcher.png",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\usern\\Desktop\\xyz\\New folder\\gaming website\\evidence\\test-results\\arcade-TC-14-every-catalog-game-opens-its-playable-activity\\attachments\\tc-14-kids-star-catcher-png-845b3282c6f615b53af8c189064c46938e55447c.png"
+                    },
+                    {
+                      "name": "tc-14-kids-turbo-track.png",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\usern\\Desktop\\xyz\\New folder\\gaming website\\evidence\\test-results\\arcade-TC-14-every-catalog-game-opens-its-playable-activity\\attachments\\tc-14-kids-turbo-track-png-bdfda482d006e7aac0d8a3be433a03fcadd100fb.png"
+                    },
+                    {
+                      "name": "tc-14-kids-gem-runner-3d.png",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\usern\\Desktop\\xyz\\New folder\\gaming website\\evidence\\test-results\\arcade-TC-14-every-catalog-game-opens-its-playable-activity\\attachments\\tc-14-kids-gem-runner-3d-png-fe06fe661a38b6aec9b902c17918afb70bb2439b.png"
                     },
                     {
                       "name": "tc-14-adult-neon-drift.png",
@@ -286,6 +301,86 @@
           "column": 1
         },
         {
+          "title": "TC-15: Star Catcher starts a keyboard-and-touch controlled arcade round",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1821,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-26T16:53:25.292Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "tc-15-star-catcher-gameplay.png",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\usern\\Desktop\\xyz\\New folder\\gaming website\\evidence\\test-results\\arcade-TC-15-Star-Catcher--711f3-uch-controlled-arcade-round\\attachments\\tc-15-star-catcher-gameplay-png-fb45d671bd92341fe87053a7e9037a42ebd91355.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "644b4ebeee2f7d62e16a-4ca87ffdd2d4e44e367c",
+          "file": "arcade.spec.js",
+          "line": 58,
+          "column": 1
+        },
+        {
+          "title": "TC-16: Turbo Track starts a Phaser race and responds to acceleration",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 6154,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-26T16:53:27.150Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "tc-16-turbo-track-racing.png",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\usern\\Desktop\\xyz\\New folder\\gaming website\\evidence\\test-results\\arcade-TC-16-Turbo-Track-s-a5d68-nd-responds-to-acceleration\\attachments\\tc-16-turbo-track-racing-png-2da0be1a2c02df86b720517546df61f1f1b4472a.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "644b4ebeee2f7d62e16a-bd113058ca6dbc6d448c",
+          "file": "arcade.spec.js",
+          "line": 72,
+          "column": 1
+        },
+        {
           "title": "TC-04/06: search finds matches and handles empty results",
           "ok": true,
           "tags": [],
@@ -301,12 +396,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 3206,
+                  "duration": 4183,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-10-20T06:24:25.776Z",
+                  "startTime": "2026-10-26T16:53:33.340Z",
                   "annotations": [],
                   "attachments": [
                     {
@@ -332,7 +427,7 @@
           ],
           "id": "644b4ebeee2f7d62e16a-e5e4401bb769d20ff618",
           "file": "arcade.spec.js",
-          "line": 58,
+          "line": 97,
           "column": 1
         },
         {
@@ -351,12 +446,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 1795,
+                  "duration": 2232,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-10-20T06:24:29.012Z",
+                  "startTime": "2026-10-26T16:53:37.564Z",
                   "annotations": [],
                   "attachments": [
                     {
@@ -372,7 +467,7 @@
           ],
           "id": "644b4ebeee2f7d62e16a-078014d1d3fb4a27622c",
           "file": "arcade.spec.js",
-          "line": 72,
+          "line": 111,
           "column": 1
         },
         {
@@ -391,12 +486,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 3121,
+                  "duration": 4400,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-10-20T06:24:30.836Z",
+                  "startTime": "2026-10-26T16:53:39.830Z",
                   "annotations": [],
                   "attachments": [
                     {
@@ -417,7 +512,7 @@
           ],
           "id": "644b4ebeee2f7d62e16a-9a1a735d2d396c3d059f",
           "file": "arcade.spec.js",
-          "line": 81,
+          "line": 120,
           "column": 1
         },
         {
@@ -436,12 +531,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 2595,
+                  "duration": 4337,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-10-20T06:24:33.990Z",
+                  "startTime": "2026-10-26T16:53:44.266Z",
                   "annotations": [],
                   "attachments": [
                     {
@@ -462,7 +557,7 @@
           ],
           "id": "644b4ebeee2f7d62e16a-6c1a3dbe7d852b6ed5ee",
           "file": "arcade.spec.js",
-          "line": 104,
+          "line": 152,
           "column": 1
         },
         {
@@ -481,12 +576,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 4050,
+                  "duration": 6116,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-10-20T06:24:36.624Z",
+                  "startTime": "2026-10-26T16:53:48.641Z",
                   "annotations": [],
                   "attachments": [
                     {
@@ -507,7 +602,7 @@
           ],
           "id": "644b4ebeee2f7d62e16a-0a4dfafd23dbc388edd0",
           "file": "arcade.spec.js",
-          "line": 125,
+          "line": 181,
           "column": 1
         },
         {
@@ -526,12 +621,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 4103,
+                  "duration": 4482,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-10-20T06:24:40.706Z",
+                  "startTime": "2026-10-26T16:53:54.800Z",
                   "annotations": [],
                   "attachments": [
                     {
@@ -557,7 +652,7 @@
           ],
           "id": "644b4ebeee2f7d62e16a-930cdf19144e69c012ca",
           "file": "arcade.spec.js",
-          "line": 143,
+          "line": 199,
           "column": 1
         },
         {
@@ -576,12 +671,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 2222,
+                  "duration": 2654,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-10-20T06:24:44.841Z",
+                  "startTime": "2026-10-26T16:53:59.319Z",
                   "annotations": [],
                   "attachments": [
                     {
@@ -597,7 +692,7 @@
           ],
           "id": "644b4ebeee2f7d62e16a-75d50017e1cbea3a5571",
           "file": "arcade.spec.js",
-          "line": 170,
+          "line": 226,
           "column": 1
         },
         {
@@ -616,12 +711,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 1353,
+                  "duration": 2270,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-10-20T06:24:47.104Z",
+                  "startTime": "2026-10-26T16:54:02.005Z",
                   "annotations": [],
                   "attachments": [
                     {
@@ -637,7 +732,7 @@
           ],
           "id": "644b4ebeee2f7d62e16a-9fe45e443701411d3ee0",
           "file": "arcade.spec.js",
-          "line": 178,
+          "line": 234,
           "column": 1
         },
         {
@@ -656,12 +751,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 2804,
+                  "duration": 5053,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-10-20T06:24:48.479Z",
+                  "startTime": "2026-10-26T16:54:04.303Z",
                   "annotations": [],
                   "attachments": [
                     {
@@ -682,7 +777,7 @@
           ],
           "id": "644b4ebeee2f7d62e16a-89be6570143364d362c7",
           "file": "arcade.spec.js",
-          "line": 187,
+          "line": 243,
           "column": 1
         },
         {
@@ -701,12 +796,12 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 1645,
+                  "duration": 1820,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-10-20T06:24:51.317Z",
+                  "startTime": "2026-10-26T16:54:09.387Z",
                   "annotations": [],
                   "attachments": [
                     {
@@ -722,7 +817,235 @@
           ],
           "id": "644b4ebeee2f7d62e16a-24e32c34f80c76c64f9a",
           "file": "arcade.spec.js",
-          "line": 198,
+          "line": 254,
+          "column": 1
+        },
+        {
+          "title": "TC-18: clicking or keyboard-activating a game card opens its popup",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2741,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-26T16:54:11.238Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "tc-18-game-card-popup.png",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\usern\\Desktop\\xyz\\New folder\\gaming website\\evidence\\test-results\\arcade-TC-18-clicking-or-k-c331b-a-game-card-opens-its-popup\\attachments\\tc-18-game-card-popup-png-f5afbc97b7d4e92a09ffb511c3b943395084ba41.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "644b4ebeee2f7d62e16a-eaf4d5edfbc9fec0dfbe",
+          "file": "arcade.spec.js",
+          "line": 266,
+          "column": 1
+        },
+        {
+          "title": "TC-19: header login opens a safe preview form and footer has About Us",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2407,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-26T16:54:14.011Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "tc-19-login-popup.png",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\usern\\Desktop\\xyz\\New folder\\gaming website\\evidence\\test-results\\arcade-TC-19-header-login--17352-orm-and-footer-has-About-Us\\attachments\\tc-19-login-popup-png-7645f38056ad7eb20664b338a1d4b996bc6428b5.png"
+                    },
+                    {
+                      "name": "tc-19-about-us-footer.png",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\usern\\Desktop\\xyz\\New folder\\gaming website\\evidence\\test-results\\arcade-TC-19-header-login--17352-orm-and-footer-has-About-Us\\attachments\\tc-19-about-us-footer-png-dca92ca987df782230426bd32a6e715cf985b695.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "644b4ebeee2f7d62e16a-e9e9e4b37ebbba50a2f4",
+          "file": "arcade.spec.js",
+          "line": 280,
+          "column": 1
+        },
+        {
+          "title": "TC-20: Dino Lab and Planet Pals show a matching 3D-style image for every question",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4948,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-26T16:54:16.450Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "tc-20-dino-visual.png",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\usern\\Desktop\\xyz\\New folder\\gaming website\\evidence\\test-results\\arcade-TC-20-Dino-Lab-and--c24c6-le-image-for-every-question\\attachments\\tc-20-dino-visual-png-e532ba4328e87a1180cb29990646ebf2b52107f7.png"
+                    },
+                    {
+                      "name": "tc-20-planet-visual.png",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\usern\\Desktop\\xyz\\New folder\\gaming website\\evidence\\test-results\\arcade-TC-20-Dino-Lab-and--c24c6-le-image-for-every-question\\attachments\\tc-20-planet-visual-png-666b102efdcadbc4076313e85d36d667179e2bb5.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "644b4ebeee2f7d62e16a-fe8e47259b6001e91acd",
+          "file": "arcade.spec.js",
+          "line": 298,
+          "column": 1
+        },
+        {
+          "title": "TC-21: Code Camp has easier questions with a 3D-style picture for each step",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4082,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-26T16:54:21.426Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "tc-21-code-camp-pattern.png",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\usern\\Desktop\\xyz\\New folder\\gaming website\\evidence\\test-results\\arcade-TC-21-Code-Camp-has-0f45e-style-picture-for-each-step\\attachments\\tc-21-code-camp-pattern-png-ba82716ff2d4a28f810b403e2d86e802f781f0f4.png"
+                    },
+                    {
+                      "name": "tc-21-code-camp-robot.png",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\usern\\Desktop\\xyz\\New folder\\gaming website\\evidence\\test-results\\arcade-TC-21-Code-Camp-has-0f45e-style-picture-for-each-step\\attachments\\tc-21-code-camp-robot-png-107a5b6673ee42bf3b028045b1ff488f18dc7701.png"
+                    },
+                    {
+                      "name": "tc-21-code-camp-loop.png",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\usern\\Desktop\\xyz\\New folder\\gaming website\\evidence\\test-results\\arcade-TC-21-Code-Camp-has-0f45e-style-picture-for-each-step\\attachments\\tc-21-code-camp-loop-png-881df7eff9763e526970533df4e39032b0c59421.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "644b4ebeee2f7d62e16a-b933fc8b0c11645d6e6c",
+          "file": "arcade.spec.js",
+          "line": 322,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "gem-runner.spec.js",
+      "file": "gem-runner.spec.js",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "TC-17: Gem Runner 3D starts a Three.js run and changes lanes",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2888,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-26T16:54:25.578Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "tc-17-gem-runner-3d.png",
+                      "contentType": "image/png",
+                      "path": "C:\\Users\\usern\\Desktop\\xyz\\New folder\\gaming website\\evidence\\test-results\\gem-runner-TC-17-Gem-Runne-ec1d3-ee-js-run-and-changes-lanes\\attachments\\tc-17-gem-runner-3d-png-81fb9ca982a3255db0ca0ddabf7c37cb61121532.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "48c8762f5422e04aa7cc-a05221a6bafeb530e59e",
+          "file": "gem-runner.spec.js",
+          "line": 3,
           "column": 1
         }
       ]
@@ -730,9 +1053,9 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2026-10-20T06:24:10.819Z",
-    "duration": 42501.897000000004,
-    "expected": 13,
+    "startTime": "2026-10-26T16:53:04.346Z",
+    "duration": 84739.868,
+    "expected": 20,
     "skipped": 0,
     "unexpected": 0,
     "flaky": 0

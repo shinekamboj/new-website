@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 180" fill="none">
+  <defs>
+    <linearGradient id="robot" x1="77" y1="48" x2="139" y2="125" gradientUnits="userSpaceOnUse"><stop stop-color="#C5F2FF"/><stop offset=".55" stop-color="#70BFF5"/><stop offset="1" stop-color="#6377DC"/></linearGradient>
+    <linearGradient id="path" x1="53" y1="119" x2="183" y2="155" gradientUnits="userSpaceOnUse"><stop stop-color="#566FE0"/><stop offset="1" stop-color="#344396"/></linearGradient>
+    <filter id="shadow" x="25" y="133" width="192" height="34" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse"><feGaussianBlur stdDeviation="6"/></filter>
+  </defs>
+  <ellipse cx="121" cy="150" fill="#1A2C57" fill-opacity=".3" filter="url(#shadow)" rx="79" ry="10"/>
+  <path d="m49 117 70-36 73 37-72 38-71-39Z" fill="url(#path)" stroke="#A4C4FF" stroke-width="2" stroke-linejoin="round"/>
+  <path d="m73 117 25-13 25 14-25 14-25-15Zm50 1 24-13 24 13-24 14-24-14Z" fill="#F9D565" stroke="#FFF0A8" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M98 65c0-8 6-14 14-14h21c8 0 14 6 14 14v35c0 8-6 14-14 14h-21c-8 0-14-6-14-14V65Z" fill="url(#robot)" stroke="#E0FAFF" stroke-width="3"/>
+  <rect x="103" y="67" width="39" height="23" rx="9" fill="#26345E"/><circle cx="115" cy="78" r="4" fill="#8CFFE1"/><circle cx="131" cy="78" r="4" fill="#FFE98F"/>
+  <path d="M123 51V41m0 0-7-5m7 5 7-5" stroke="#C7F8FF" stroke-width="3" stroke-linecap="round"/>
+  <path d="m105 113-5 17m35-17 5 17" stroke="#9DD8FF" stroke-width="7" stroke-linecap="round"/>
+  <path d="m166 56 3 7 7 3-7 3-3 7-3-7-7-3 7-3 3-7Z" fill="#FFF1A8"/>
+</svg>
